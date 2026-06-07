@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- White ball body with dark border -->
+  <circle cx="32" cy="32" r="29" fill="#ffffff" stroke="#0a0e1a" stroke-width="3"/>
+  <!-- Center pentagon -->
+  <polygon points="32,18 43,26 38.5,39 25.5,39 21,26" fill="#0a0e1a"/>
+  <!-- Five lines radiating from pentagon vertices to ball edge -->
+  <line x1="32" y1="18" x2="32" y2="5" stroke="#0a0e1a" stroke-width="3" stroke-linecap="round"/>
+  <line x1="43" y1="26" x2="57" y2="21" stroke="#0a0e1a" stroke-width="3" stroke-linecap="round"/>
+  <line x1="38.5" y1="39" x2="48" y2="54" stroke="#0a0e1a" stroke-width="3" stroke-linecap="round"/>
+  <line x1="25.5" y1="39" x2="16" y2="54" stroke="#0a0e1a" stroke-width="3" stroke-linecap="round"/>
+  <line x1="21" y1="26" x2="7" y2="21" stroke="#0a0e1a" stroke-width="3" stroke-linecap="round"/>
+</svg>
