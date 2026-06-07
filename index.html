@@ -34,6 +34,8 @@
     font-family: 'DM Sans', sans-serif;
     -webkit-font-smoothing: antialiased;
     min-height: 100vh;
+    overflow-x: hidden;
+    max-width: 100vw;
   }
   body {
     background:
@@ -1508,16 +1510,211 @@
   }
   .ec-footer .ec-brand span { color: var(--text); }
 
-  @media (max-width: 640px) {
+  @media (max-width: 768px) {
+    html, body { overflow-x: hidden; max-width: 100vw; }
     header { padding: 32px 16px 16px; }
     main { padding: 20px 16px 60px; }
     .tabs, .guide, .controls { padding: 0 16px; }
     .day-matches, .groups { grid-template-columns: 1fr; gap: 12px; }
-    .group-card .match, .match { grid-template-columns: 56px 1fr; padding: 12px 14px; gap: 10px; }
     .group-header { padding: 16px; }
     .group-letter { font-size: 36px; }
     .controls { gap: 8px; }
     .global-export { width: 100%; justify-content: center; }
+
+    /* ========== MATCH CARD: date moves to top, single column ========== */
+    .match, .group-card .match {
+      grid-template-columns: 1fr !important;
+      padding: 12px 14px !important;
+      gap: 10px !important;
+    }
+
+    /* Date area becomes horizontal banner above match content */
+    .match-date {
+      display: flex !important;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 6px 10px;
+      padding: 6px 0 10px;
+      border-bottom: 1px dashed rgba(255,255,255,0.1);
+      font-size: 10px;
+    }
+    .match-date > div, .match-date > .local-sep, .match-date > .stad-sep {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+    .match-date .day {
+      font-size: 18px !important;
+      margin: 0 !important;
+      line-height: 1 !important;
+    }
+    .match-date .time {
+      margin-top: 0 !important;
+      font-size: 14px !important;
+    }
+    .match-date .tz {
+      margin-top: 0 !important;
+      font-size: 9px !important;
+    }
+    .match-date .gp {
+      margin-top: 0 !important;
+      font-size: 11px !important;
+    }
+    /* Original time block — inline pill */
+    .match-date .local-sep {
+      border-top: none !important;
+      padding-top: 0 !important;
+      margin-top: 0 !important;
+      padding-left: 10px !important;
+      border-left: 1px dashed rgba(255,255,255,0.12);
+    }
+    .match-date .local-lab, .match-date .stad-lab {
+      margin-bottom: 0 !important;
+    }
+    .match-date .local-country { margin-bottom: 0 !important; }
+    .match-date .local-time {
+      margin-top: 0 !important;
+      font-size: 12px !important;
+    }
+    /* Stadium block — inline pill */
+    .match-date .stad-sep {
+      border-top: none !important;
+      padding-top: 0 !important;
+      margin-top: 0 !important;
+      padding-left: 10px !important;
+      border-left: 1px dashed rgba(255,255,255,0.12);
+    }
+    .match-date .stad-name {
+      font-size: 11px !important;
+      display: inline !important;
+    }
+    .match-date .stad-city {
+      font-size: 10px !important;
+      margin-top: 0 !important;
+      display: inline !important;
+      opacity: 0.8;
+    }
+  }
+
+  @media (max-width: 640px) {
+    /* ========== TEAMS: stack vertically with score between ========== */
+    .teams-row {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 10px !important;
+    }
+    /* Both teams use same left-aligned layout: flag → info → stats */
+    .team, .team.away {
+      width: 100% !important;
+      justify-content: flex-start !important;
+      flex-direction: row !important;
+    }
+    /* Use 'order' to put away-team flag first (HTML has info-then-flag) */
+    .team.away .fi { order: 1; }
+    .team.away .info { order: 2; }
+    /* Inside name-row of away team, also reverse: HTML is [pow][star][name], we want [star][name][pow] */
+    .team.away .name-row .host-star { order: 1; }
+    .team.away .name-row .name { order: 2; }
+    .team.away .name-row .pow { order: 3; }
+    /* Both teams: content left-aligned */
+    .team .info, .team.away .info {
+      align-items: flex-start !important;
+    }
+    .team .name-row, .team.away .name-row {
+      justify-content: flex-start !important;
+    }
+    .team .stats, .team.away .stats {
+      align-items: flex-start !important;
+    }
+    .team .name {
+      max-width: none;
+    }
+    .score-cell {
+      align-self: center;
+      width: auto;
+      min-width: 140px;
+    }
+    /* AH grid: stack 1 column */
+    .ah-grid {
+      grid-template-columns: 1fr !important;
+    }
+    /* ML grid: keep 3-column but smaller */
+    .ml-grid {
+      grid-template-columns: 1fr 1fr 1fr !important;
+      gap: 6px !important;
+    }
+    .ml-cell, .ah-cell {
+      font-size: 11px !important;
+    }
+    .ml-cell .lab, .ah-cell .lab {
+      font-size: 9px !important;
+    }
+    .ml-cell .odd {
+      font-size: 16px !important;
+    }
+    /* Comm/AI blocks - tighter padding */
+    .comm, .ai-analysis {
+      padding: 10px 12px !important;
+    }
+    /* Tables in standings/records - horizontal scroll within their card */
+    .standing-card {
+      overflow-x: auto;
+    }
+    .standing-table {
+      min-width: 100%;
+    }
+    /* Conf tabs - allow horizontal scroll */
+    .conf-tabs {
+      overflow-x: auto;
+      flex-wrap: nowrap;
+      scrollbar-width: thin;
+    }
+    .conf-tab { white-space: nowrap; }
+    /* Header */
+    header h1 { font-size: 48px !important; }
+    header .sub { font-size: 13px; }
+    /* Score controls wrap nicely */
+    .score-controls {
+      flex-wrap: wrap;
+    }
+    /* Mode toggle - more compact */
+    .mode-toggle {
+      flex-wrap: wrap;
+    }
+    .mode-label { padding: 0 4px !important; }
+    .mode-btn { padding: 7px 10px !important; font-size: 11px !important; }
+    /* Knockout tabs - horizontal scroll */
+    .ko-tabs {
+      overflow-x: auto;
+      flex-wrap: nowrap;
+      scrollbar-width: thin;
+    }
+    .ko-tab { white-space: nowrap; }
+    /* Export panel - full width on mobile */
+    .export-panel {
+      position: fixed !important;
+      top: auto !important;
+      bottom: 20px !important;
+      left: 16px !important;
+      right: 16px !important;
+      min-width: 0 !important;
+      max-width: none !important;
+      max-height: 70vh;
+    }
+  }
+
+  @media (max-width: 420px) {
+    /* Extreme small screens */
+    header h1 { font-size: 40px !important; }
+    .match, .group-card .match { padding: 10px 12px !important; }
+    .team .name { font-size: 13px !important; }
+    .team .name-row .pow { font-size: 11px !important; }
+    .team .stats { font-size: 10px !important; }
+    .ml-cell .odd { font-size: 15px !important; }
+    .ai-title { font-size: 12px !important; }
+    .ai-content { font-size: 11.5px !important; }
+    .ai-rec-reason { font-size: 11px !important; }
   }
 </style>
 </head>
