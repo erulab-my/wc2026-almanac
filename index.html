@@ -812,17 +812,31 @@
     gap: 8px;
     margin-bottom: 4px;
   }
+  /* ---------------- TEAM (desktop default: flag prominent, ABOVE the info) ---------------- */
   .team {
     display: flex;
-    align-items: center;
-    gap: 8px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
     min-width: 0;
   }
-  .team.away { justify-content: flex-end; }
+  .team.away { align-items: flex-end; }
+  /* BIG flag on top of the team info */
+  .team > .fi {
+    width: 64px !important;
+    height: 48px !important;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.08);
+    flex-shrink: 0;
+  }
+  /* Away team: reverse order so flag stays on top (HTML order is info-then-flag for away) */
+  .team.away > .fi { order: 1; }
+  .team.away > .info { order: 2; }
   .team .info {
     display: flex;
     flex-direction: column;
     min-width: 0;
+    width: 100%;
   }
   .team.away .info { align-items: flex-end; }
   /* Name row: name + power score side-by-side */
@@ -1602,28 +1616,39 @@
     .teams-row {
       display: flex !important;
       flex-direction: column !important;
-      gap: 10px !important;
+      gap: 12px !important;
     }
-    /* Both teams use same left-aligned layout: flag → info → stats */
+    /* Both teams: row layout, info LEFT, BIG flag RIGHT */
     .team, .team.away {
-      width: 100% !important;
-      justify-content: flex-start !important;
       flex-direction: row !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+      gap: 14px !important;
+      width: 100% !important;
     }
-    /* Use 'order' to put away-team flag first (HTML has info-then-flag) */
-    .team.away .fi { order: 1; }
-    .team.away .info { order: 2; }
-    /* Inside name-row of away team, also reverse: HTML is [pow][star][name], we want [star][name][pow] */
-    .team.away .name-row .host-star { order: 1; }
-    .team.away .name-row .name { order: 2; }
-    .team.away .name-row .pow { order: 3; }
-    /* Both teams: content left-aligned */
-    .team .info, .team.away .info {
+    /* BIG flag on the right for both teams */
+    .team > .fi, .team.away > .fi {
+      order: 2 !important;
+      width: 96px !important;
+      height: 72px !important;
+      flex-shrink: 0;
+      border-radius: 5px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.1);
+    }
+    .team > .info, .team.away > .info {
+      order: 1 !important;
+      flex: 1 !important;
+      min-width: 0;
       align-items: flex-start !important;
+      width: auto !important;
     }
+    /* Reorder name-row content for away (HTML is [pow][star][name]) to match home layout */
     .team .name-row, .team.away .name-row {
       justify-content: flex-start !important;
     }
+    .team.away .name-row .host-star { order: 0 !important; }
+    .team.away .name-row .name { order: 1 !important; }
+    .team.away .name-row .pow { order: 2 !important; }
     .team .stats, .team.away .stats {
       align-items: flex-start !important;
     }
@@ -1705,7 +1730,11 @@
   }
 
   @media (max-width: 420px) {
-    /* Extreme small screens */
+    /* Extreme small screens - slightly smaller flag */
+    .team > .fi, .team.away > .fi {
+      width: 80px !important;
+      height: 60px !important;
+    }
     header h1 { font-size: 40px !important; }
     .match, .group-card .match { padding: 10px 12px !important; }
     .team .name { font-size: 13px !important; }
