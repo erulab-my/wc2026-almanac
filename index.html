@@ -3286,7 +3286,6 @@ function mlCommentary(home, away, h, d, a) {
       <div class="c-line"><span class="c-mark">▸</span><span><strong>${home}</strong> win: ${fmt(h)}</span></div>
       <div class="c-line"><span class="c-mark">▸</span><span><strong>Draw</strong>: ${fmt(d)}</span></div>
       <div class="c-line"><span class="c-mark">▸</span><span><strong>${away}</strong> win: ${fmt(a)}</span></div>
-      <div class="c-line" style="margin-top:8px;opacity:0.75;font-size:11px;line-height:1.5"><span class="c-mark">·</span><span><strong>How to read decimal odds:</strong> the number is the <strong>total return multiplier</strong> per unit. <strong>Lower number = market thinks outcome more likely</strong> (smaller multiplier). <strong>Higher number = less likely outcome</strong> (bigger multiplier). Same data, two angles — multiplier and probability.</span></div>
     </div>
   `;
 }
@@ -3419,9 +3418,6 @@ function matchHTML(m, groupLetter) {
               ? `<div class="ai-rec">${line}</div>`
               : `<div class="ai-line"><span class="ai-bullet">▸</span><span class="ai-text">${line}</span></div>`
             ).join('')}
-          </div>
-          <div class="ai-footer">
-            Statistical analysis by <strong>Claude (Anthropic)</strong> weighing power scores, qualifying form, host status, climate, notable players, debut nations, and World Cup pedigree to predict the most likely outcome. <strong>Predictions, not betting advice.</strong> Like a TV pundit's match preview — informational only. Bookmaker odds shown as data context, the way news outlets cite odds in match previews.
           </div>
         </div>
       `;
