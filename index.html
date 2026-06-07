@@ -714,6 +714,8 @@
     pointer-events: none;
   }
   .match-date { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--text-dim); line-height: 1.4; padding-top: 2px; }
+  /* Desktop: wrappers are transparent — preserves the existing flat vertical stack */
+  .match-date .md-hero, .match-date .md-info { display: contents; }
   .match-date .day { font-size: 20px; font-weight: 700; color: var(--text); font-family: 'Archivo Black', sans-serif; line-height: 1; margin: 2px 0; }
   .match-date .time { color: var(--gold); font-weight: 700; margin-top: 6px; font-size: 12px; }
   .match-date .tz { font-size: 8px; color: var(--text-dim); letter-spacing: 1px; margin-top: 2px; font-weight: 700; }
@@ -1588,30 +1590,65 @@
       gap: 10px !important;
     }
 
-    /* Date area becomes horizontal banner above match content */
+    /* Date area becomes hero anchor + info column on mobile */
     .match-date {
+      display: grid !important;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 0 14px;
+      border-bottom: 1px dashed rgba(255,255,255,0.1);
+      font-size: 10px;
+    }
+    /* Hero column: stacked DOW / big day number / month */
+    .match-date .md-hero {
+      display: flex !important;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 10px;
+      border-right: 1px solid rgba(255,255,255,0.1);
+      line-height: 1;
+      min-width: 64px;
+    }
+    .match-date .md-hero .dow {
+      font-size: 11px;
+      letter-spacing: 2.5px;
+      color: var(--text-dim);
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .match-date .md-hero .day {
+      font-size: 44px !important;
+      margin: 0 !important;
+      line-height: 0.95 !important;
+      color: var(--text);
+      letter-spacing: -2px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+    .match-date .md-hero .mo {
+      font-size: 11px;
+      letter-spacing: 2.5px;
+      color: var(--gold);
+      font-weight: 700;
+      margin-top: 4px;
+    }
+    /* Info column: flex-wrap of all other date info */
+    .match-date .md-info {
       display: flex !important;
       flex-wrap: wrap;
       align-items: baseline;
       gap: 6px 10px;
-      padding: 6px 0 10px;
-      border-bottom: 1px dashed rgba(255,255,255,0.1);
-      font-size: 10px;
     }
-    .match-date > div, .match-date > .local-sep, .match-date > .stad-sep {
+    .match-date .md-info > div {
       display: inline-flex;
       align-items: baseline;
       gap: 4px;
       flex-wrap: wrap;
     }
-    .match-date .day {
-      font-size: 18px !important;
-      margin: 0 !important;
-      line-height: 1 !important;
-    }
     .match-date .time {
       margin-top: 0 !important;
-      font-size: 14px !important;
+      font-size: 16px !important;
     }
     .match-date .tz {
       margin-top: 0 !important;
@@ -1619,7 +1656,7 @@
     }
     .match-date .gp {
       margin-top: 0 !important;
-      font-size: 11px !important;
+      font-size: 12px !important;
     }
     /* Original time block — inline pill */
     .match-date .local-sep {
@@ -1654,6 +1691,12 @@
       margin-top: 0 !important;
       display: inline !important;
       opacity: 0.8;
+    }
+    /* Stronger match-card separation on mobile */
+    .match {
+      border-top: 2px solid rgba(212, 175, 55, 0.25);
+      box-shadow: 0 -1px 0 rgba(255,255,255,0.04), 0 4px 16px rgba(0,0,0,0.3);
+      margin-top: 8px;
     }
   }
 
@@ -3452,14 +3495,18 @@ function matchHTML(m, groupLetter) {
   return `
     <div class="match">
       <div class="match-date">
-        <div>${dow}</div>
-        <div class="day">${day}</div>
-        <div>${mo}</div>
-        <div class="time">${fmt12(time)}</div>
-        <div class="tz">MYT - SGT Time</div>
-        ${gpBadge}
-        ${localBlock}
-        ${stadiumBlock}
+        <div class="md-hero">
+          <div class="dow">${dow}</div>
+          <div class="day">${day}</div>
+          <div class="mo">${mo}</div>
+        </div>
+        <div class="md-info">
+          <div class="time">${fmt12(time)}</div>
+          <div class="tz">MYT - SGT Time</div>
+          ${gpBadge}
+          ${localBlock}
+          ${stadiumBlock}
+        </div>
       </div>
       <div class="match-body">
         <div class="teams-row">
