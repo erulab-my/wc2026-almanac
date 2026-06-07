@@ -1139,8 +1139,8 @@
     line-height: 1.6;
   }
   .ai-content .pick { color: #c4b5fd; font-weight: 700; }
-  /* Stake size badges */
-  .ai-stake-badge {
+  /* Confidence tier badges (statistical analysis — NOT stake recommendations) */
+  .ai-conf-badge {
     display: inline-block;
     padding: 4px 10px;
     border-radius: 100px;
@@ -1152,23 +1152,23 @@
     vertical-align: middle;
     white-space: nowrap;
   }
-  .ai-stake-big {
+  .ai-conf-high {
     background: rgba(34,197,94,0.20);
     color: #4ade80;
     border: 1px solid rgba(34,197,94,0.5);
     box-shadow: 0 0 8px rgba(34,197,94,0.15);
   }
-  .ai-stake-med {
+  .ai-conf-likely {
     background: rgba(212,175,55,0.20);
     color: var(--gold-bright);
     border: 1px solid rgba(212,175,55,0.5);
   }
-  .ai-stake-small {
+  .ai-conf-lean {
     background: rgba(251,146,60,0.20);
     color: #fb923c;
     border: 1px solid rgba(251,146,60,0.5);
   }
-  .ai-stake-pass {
+  .ai-conf-toss {
     background: rgba(148,163,184,0.12);
     color: #94a3b8;
     border: 1px solid rgba(148,163,184,0.3);
@@ -1736,9 +1736,9 @@
   <div class="db-inner">
     <div class="db-icon">⚠</div>
     <div class="db-text">
-      <div class="db-title">This is NOT a betting site</div>
+      <div class="db-title">Personal Use Only · Statistical Analysis · NOT a Betting Site</div>
       <div class="db-body">
-        Purely <strong>informational</strong>. Fixture schedules and bookmaker consensus odds aggregated from public sources for fans following the tournament. <strong>This site does not accept or facilitate bets, contains no affiliate links, no ads, no referral codes, and is not affiliated with FIFA, any sportsbook, or any operator.</strong> Not gambling promotion. Not financial or betting advice. In Malaysia, Singapore and many jurisdictions, gambling is restricted by law — verify legality before any betting activity.
+        This is a <strong>personal data visualization project</strong> built by the creator for family and football fans interested in match analysis — fixtures, statistical predictions, team records, and bookmaker consensus odds as <strong>reference data</strong> (the way news outlets cite odds in match previews). <strong>Predictions are statistical analysis — "who will likely win" — not betting recommendations.</strong> This site does not accept or facilitate bets, contains <strong>no affiliate links, no ads, no referral codes, no payment processing, no registration</strong>, and is not affiliated with FIFA, any sportsbook, or any gambling operator. Not gambling promotion. Not financial or betting advice. Distribution is personal and educational only. In Malaysia, Singapore and many jurisdictions gambling is restricted by law — this site is not gambling promotion under MY/SG/ID legal frameworks.
       </div>
     </div>
     <button class="db-close" onclick="dismissDisclaimer()">Got it ×</button>
@@ -1749,7 +1749,7 @@
   <div class="wt-inner">
     <div class="wt-icon">💡</div>
     <div class="wt-text">
-      <strong>You're in Explanation Mode.</strong> Match cards include rules commentary + <strong>🤖 Claude's AI take</strong>. Claude follows a <strong>campaign mindset</strong> across 72 group matches — sizing picks <span style="color:#4ade80;font-weight:700">🟢 BIG</span> / <span style="color:var(--gold-bright);font-weight:700">🟡 MED</span> / <span style="color:#fb923c;font-weight:700">🟠 SMALL</span> by conviction, and explicitly recommending <span style="color:#94a3b8;font-weight:700">⏸ PASS</span> when there's no edge. The goal is to win the campaign, not bet every match. Tap <strong>📋 Simplified</strong> to hide rules but keep AI. Toggle <strong>🤖 AI</strong> separately.
+      <strong>Match Read mode.</strong> Each match includes <strong>🤖 Claude's statistical prediction</strong> — like a TV pundit's match preview, drawing on power scores, qualifying form, host status, climate, notable players, debut nations, and World Cup pedigree. Confidence tiers: <span style="color:#4ade80;font-weight:700">🟢 HIGH</span> / <span style="color:var(--gold-bright);font-weight:700">🟡 LIKELY</span> / <span style="color:#fb923c;font-weight:700">🟠 LEAN</span> / <span style="color:#94a3b8;font-weight:700">⚖️ TOO CLOSE</span>. Tap <strong>📋 Simplified</strong> to hide the rules commentary. Toggle <strong>🤖 AI</strong> separately.
     </div>
     <button class="wt-close" onclick="dismissWelcomeTip()">Got it ×</button>
   </div>
@@ -1837,23 +1837,24 @@
         </div>
 
         <div class="guide-card">
-          <h3>6 · Campaign Mindset 🎯</h3>
-          <p style="font-size:12px">Claude's AI analysis treats the tournament as a <strong>campaign</strong>, not 72 separate gambles. Each match recommendation comes with a <strong>stake size</strong> — or an explicit <strong>PASS</strong>.</p>
+          <h3>6 · Match Read &amp; Confidence 🎯</h3>
+          <p style="font-size:12px">Each match includes <strong>Claude's Match Read</strong> — a statistical prediction of the likely outcome, drawing on power scores, qualifying form, host status, climate, notable players, debut nations, and World Cup pedigree. <strong>Like a TV pundit's match preview, not betting advice.</strong></p>
           <div style="margin-top:10px;padding:10px;background:var(--bg-card-2);border-radius:8px;font-size:11.5px;line-height:1.8">
-            <div><span class="ai-stake-badge ai-stake-big" style="margin:0 6px 0 0">🟢 BIG STAKE</span> High conviction (class gap + good price) — ~<strong>3–5%</strong> of bankroll</div>
-            <div><span class="ai-stake-badge ai-stake-med" style="margin:0 6px 0 0">🟡 MEDIUM</span> Clear edge + value price — ~<strong>1.5–2.5%</strong></div>
-            <div><span class="ai-stake-badge ai-stake-small" style="margin:0 6px 0 0">🟠 SMALL</span> Speculative / draw value / host bump — ~<strong>0.5–1%</strong></div>
-            <div><span class="ai-stake-badge ai-stake-pass" style="margin:0 6px 0 0">⏸ PASS</span> No edge — <strong>skip it.</strong> Save bankroll for stronger opportunities</div>
+            <div><span class="ai-conf-badge ai-conf-high" style="margin:0 6px 0 0">🟢 HIGH CONFIDENCE</span> Clear class gap — outcome very likely</div>
+            <div><span class="ai-conf-badge ai-conf-likely" style="margin:0 6px 0 0">🟡 LIKELY</span> Edge to one side, expected winner identified</div>
+            <div><span class="ai-conf-badge ai-conf-lean" style="margin:0 6px 0 0">🟠 SLIGHT LEAN</span> Close match, slight statistical preference</div>
+            <div><span class="ai-conf-badge ai-conf-toss" style="margin:0 6px 0 0">⚖️ TOO CLOSE</span> Genuine 50/50 — outcome could go any way</div>
           </div>
-          <p style="margin-top:10px;font-size:11.5px"><strong>Why PASS matters:</strong> ~25–30% of group-stage matches will have no clear edge. Disciplined punters skip those. Activity is not the goal — <strong>finishing the campaign net positive</strong> is.</p>
-          <p style="font-size:11px;color:var(--text-dim);font-style:italic">Sizing is informational only. Adjust to your own bankroll and risk tolerance. Never bet what you can't afford to lose.</p>
+          <p style="margin-top:10px;font-size:11.5px"><strong>What this is:</strong> sports analysis — like ESPN match previews or BBC pundit predictions. Power scores quantify team strength; predictions weigh factors the same way a knowledgeable fan would.</p>
+          <p style="font-size:11.5px"><strong>What this is not:</strong> betting tips, stake recommendations, or actionable wagering advice. The bookmaker odds shown are reference data (news outlets do the same in match previews).</p>
+          <p style="font-size:11px;color:var(--text-dim);font-style:italic">Predictions are AI-generated heuristics, not guaranteed outcomes. Football is unpredictable — that's why we watch.</p>
         </div>
 
         <div class="guide-card">
           <h3>7 · Disclaimer</h3>
-          <p>This site is an <strong>informational reference</strong> for fixtures, schedules, and bookmaker consensus odds. It does not facilitate, accept, or take bets, and is not affiliated with any sportsbook.</p>
-          <p>Odds shown are pre-tournament estimates — lines move continuously before kick-off. Always verify on a licensed sportsbook before any wager.</p>
-          <p style="color:var(--amber);font-size:11px"><strong>Malaysia &amp; Singapore:</strong> Gambling is restricted by law in your jurisdiction. This is not gambling promotion.</p>
+          <p>This site is a <strong>personal data visualization project</strong> for fixtures, schedules, statistical match predictions, and bookmaker consensus odds as reference data. <strong>Personal &amp; educational use only.</strong> It does not facilitate, accept, or take bets, and is not affiliated with any sportsbook.</p>
+          <p>Match Read predictions are statistical analysis ("who will likely win") — <strong>not betting recommendations</strong>. Bookmaker odds shown as reference data, like news outlets cite odds in match previews. Lines move continuously — verify on licensed sportsbooks before any activity in legal jurisdictions.</p>
+          <p style="color:var(--amber);font-size:11px"><strong>Malaysia &amp; Singapore:</strong> Gambling is restricted by law in your jurisdiction. This is not gambling promotion. Distribution is personal &amp; educational only.</p>
         </div>
 
       </div>
@@ -1892,11 +1893,6 @@
     <span class="mode-label" style="padding:0 8px 0 12px;align-self:center">FILTER:</span>
     <button class="mode-btn active" data-mode="explanation">📖 Explanation</button>
     <button class="mode-btn" data-mode="simplified">📋 Simplified</button>
-    <label class="switch-label" style="margin-left:10px;padding-right:8px">
-      <input type="checkbox" id="stakeToggle">
-      <span class="switch"></span>
-      💰 Stakes
-    </label>
     <label class="switch-label" style="padding-right:8px">
       <input type="checkbox" id="aiToggle" checked>
       <span class="switch"></span>
@@ -1947,11 +1943,13 @@
 
 <footer>
   <div class="footer-disclaimer">
-    <span class="warn">⚠ INFORMATION ONLY</span><br>
+    <span class="warn">⚠ PERSONAL USE ONLY · STATISTICAL ANALYSIS · NOT A BETTING SITE</span><br>
     Fixtures from FIFA · Times converted to UTC+8 (MYT · SGT)<br>
-    Power scores derived from FIFA ranking + qualifying form<br>
-    Odds are pre-tournament estimates and move continuously before kick-off<br>
-    Not affiliated with FIFA · Not gambling promotion · Not financial advice<br>
+    Match Read predictions are statistical analysis (power scores, form, climate, players, history) — not betting advice<br>
+    Bookmaker odds shown as reference data, like news outlets do in match previews<br>
+    No affiliate links · No ads · No payments · No registration · No bets accepted or facilitated<br>
+    Not affiliated with FIFA, any sportsbook, or any gambling operator<br>
+    Distribution is personal &amp; educational only<br>
     <br>
     DATA SNAPSHOT: <span id="snapDate"></span>
   </div>
@@ -3192,15 +3190,16 @@ function fmtLine(L) { if (L === 0) return '0'; return (L > 0 ? '+' : '') + L; }
 
 function mlCommentary(home, away, h, d, a) {
   const fmt = (odd) => {
-    const ret = Math.round(odd * 100);
-    return `stake 100 returns <span class="stake">${ret}</span> (profit ${ret - 100})`;
+    const impProb = Math.round(100 / odd);
+    return `${odd.toFixed(2)} (implied probability ~${impProb}%)`;
   };
   return `
     <div class="comm">
-      <div class="c-header">FOR MONEYLINE (1X2) BETS — payout if you pick:</div>
-      <div class="c-line"><span class="c-mark">▸</span><span><strong>${home}</strong> wins → ${fmt(h)}</span></div>
-      <div class="c-line"><span class="c-mark">▸</span><span><strong>Draw</strong> → ${fmt(d)}</span></div>
-      <div class="c-line"><span class="c-mark">▸</span><span><strong>${away}</strong> wins → ${fmt(a)}</span></div>
+      <div class="c-header">MONEYLINE (1X2) MARKET — bookmaker consensus per outcome:</div>
+      <div class="c-line"><span class="c-mark">▸</span><span><strong>${home}</strong> win: ${fmt(h)}</span></div>
+      <div class="c-line"><span class="c-mark">▸</span><span><strong>Draw</strong>: ${fmt(d)}</span></div>
+      <div class="c-line"><span class="c-mark">▸</span><span><strong>${away}</strong> win: ${fmt(a)}</span></div>
+      <div class="c-line" style="margin-top:6px;opacity:0.7;font-size:11px"><span class="c-mark">·</span><span>Lower odds = market thinks the outcome is more likely.</span></div>
     </div>
   `;
 }
@@ -3231,12 +3230,6 @@ function ahCommentary(L, name) {
   if (L === 2)      return `<strong>${name}</strong> wins, draws, or loses by 1 = ${win}. Loss by exactly 2 = ${refund}. Loss by 3+ = ${lose}.`;
   if (L === 2.5)    return `<strong>${name}</strong> wins, draws, or loses by 1 or 2 = ${win}. Loss by 3+ = ${lose}.`;
   return `<strong>${name}</strong> handicap ${fmtLine(L)}.`;
-}
-function stakeText(odd) {
-  const stakeOn = document.getElementById('stakeToggle')?.checked;
-  if (!stakeOn) return '';
-  const ret = Math.round(odd * 100);
-  return ` &nbsp;·&nbsp; <span class="stake">100 → ${ret} (profit ${ret - 100})</span>`;
 }
 
 function dowFmt(dateStr) {
@@ -3316,9 +3309,9 @@ function matchHTML(m, groupLetter) {
   const mlComm = simplifiedMode ? '' : mlCommentary(home, away, h, d, a);
   const ahComm = simplifiedMode ? '' : `
         <div class="comm">
-          <div class="c-header">FOR ASIAN HANDICAP BETS — what each side needs:</div>
-          <div class="c-line"><span class="c-mark">▸</span><span>${ahCommentary(hLine, home)}${stakeText(hOdd)}</span></div>
-          <div class="c-line"><span class="c-mark">▸</span><span>${ahCommentary(aLine, away)}${stakeText(aOdd)}</span></div>
+          <div class="c-header">ASIAN HANDICAP MARKET — margin reference:</div>
+          <div class="c-line"><span class="c-mark">▸</span><span>${ahCommentary(hLine, home)}</span></div>
+          <div class="c-line"><span class="c-mark">▸</span><span>${ahCommentary(aLine, away)}</span></div>
         </div>`;
   // AI analysis — controlled by independent flag, NOT tied to simplified mode.
   // So you can: Simplified + AI on, Simplified + AI off, Explanation + AI on/off — any combo.
@@ -3331,8 +3324,8 @@ function matchHTML(m, groupLetter) {
         <div class="ai-analysis">
           <div class="ai-header">
             <span class="ai-icon">🤖</span>
-            <span class="ai-title">Claude's Take · Football Punter Mode</span>
-            <span class="ai-badge">AI ANALYSIS</span>
+            <span class="ai-title">Claude's Match Read · Statistical Analysis</span>
+            <span class="ai-badge">PREDICTION</span>
           </div>
           <div class="ai-content">
             ${aiLines.map((line, i) => i === last
@@ -3341,7 +3334,7 @@ function matchHTML(m, groupLetter) {
             ).join('')}
           </div>
           <div class="ai-footer">
-            Heuristic analysis by <strong>Claude (Anthropic)</strong>. <strong>Campaign mindset:</strong> not every match needs a bet — disciplined skips preserve bankroll for high-conviction picks. Suggested sizing: 🟢 BIG ≈ 3–5% of bankroll, 🟡 MEDIUM ≈ 1.5–2.5%, 🟠 SMALL ≈ 0.5–1%, ⏸ PASS = 0%. <strong>Not betting advice</strong> — informational only.
+            Statistical analysis by <strong>Claude (Anthropic)</strong> weighing power scores, qualifying form, host status, climate, notable players, debut nations, and World Cup pedigree to predict the most likely outcome. <strong>Predictions, not betting advice.</strong> Like a TV pundit's match preview — informational only. Bookmaker odds shown as data context, the way news outlets cite odds in match previews.
           </div>
         </div>
       `;
@@ -3762,86 +3755,71 @@ function aiAnalysis(home, away, ml, ah, venue) {
     lines.push(`<strong>${away}</strong> have <span style="color:var(--blue)">★ home advantage</span> as host nation. Crowd noise + altitude/climate familiarity = real edge.`);
   }
 
-  // 10. STAKE-SIZED RECOMMENDATION — Claude's pick
-  //   The goal is to WIN the campaign across 72 group matches, not to bet every one.
-  //   Stake tiers: BIG (high conviction) · MEDIUM (decent edge) · SMALL (speculative) · PASS (no edge — skip)
-  let recAction, recBet, recReason;
+  // 10. MATCH READ — Claude's predicted outcome (statistical analysis, not betting advice)
+  //   Frames as "who will likely win" — what a TV pundit would say in a match preview.
+  let predAction, predTitle, predReason;
   const minMl = Math.min(h_ml, a_ml);
   const fav_ml = powDiff > 0 ? h_ml : a_ml;
   const isFavHost = (powDiff > 0 && hHost) || (powDiff < 0 && aHost);
 
   if (minMl < 1.15) {
-    // Heavy favourite priced too short — ML no value, AH carries margin risk
-    recAction = 'PASS';
-    recReason = `Favourite priced at ${minMl.toFixed(2)} — Moneyline too short to be worth staking, AH carries one-goal margin risk. Better to skip and preserve bankroll for a clearer edge.`;
+    predAction = 'HIGH';
+    predTitle = `${powDiff > 0 ? home : away} predicted to win comfortably`;
+    predReason = `Bookmaker consensus prices the favourite at ${minMl.toFixed(2)} — implied probability ~${Math.round(100/minMl)}%. Power scores and form agree: this should be a one-sided result.`;
   } else if (gap >= 25) {
-    if (fav_ml <= 1.30) {
-      recAction = 'MEDIUM';
-      recBet = `Asian Handicap on ${fav} (−1.5 or −2 line)`;
-      recReason = `Moneyline at ${fav_ml.toFixed(2)} is too short. AH stretches the line for real return without crazy risk. Medium stake.`;
-    } else {
-      recAction = 'BIG';
-      recBet = `Moneyline (1X2) on ${fav}`;
-      recReason = `${gap}-point class gap + reasonable price at ${fav_ml.toFixed(2)}. High-conviction call — size up.`;
-    }
+    predAction = 'HIGH';
+    predTitle = `${fav} predicted to win — likely by 2+ goals`;
+    predReason = `${gap}-point power gap, qualifying form, squad depth, and ranking all point one way. Expect ${fav} to control possession and probably win comfortably.`;
   } else if (gap >= 15) {
-    recAction = 'MEDIUM';
-    recBet = `Moneyline (1X2) on ${fav}`;
-    recReason = `Clear edge (${gap} power points) at ${fav_ml.toFixed(2)}. Decent value, not a banker. Medium stake fits.`;
+    predAction = 'LIKELY';
+    predTitle = `${fav} likely to win`;
+    predReason = `Clear edge of ${gap} power points. ${fav} should control most of the game, though ${dog} have enough to make it competitive in spells.`;
   } else if (gap >= 8) {
-    if (fav_ml >= 1.80 && fav_ml <= 2.5) {
-      recAction = 'MEDIUM';
-      recBet = `Moneyline on ${fav} at ${fav_ml.toFixed(2)}`;
-      recReason = `${gap}-point edge + value price. Moneyline safer than AH at this gap. Medium stake.`;
-    } else if (isFavHost) {
-      recAction = 'MEDIUM';
-      recBet = `Moneyline on ${fav} (host)`;
-      recReason = `Edge + home advantage stacks. Medium stake on the host.`;
+    if (isFavHost) {
+      predAction = 'LIKELY';
+      predTitle = `${fav} likely to win — host advantage compounds the edge`;
+      predReason = `${gap}-point edge plus the crowd, climate familiarity, and no travel fatigue. Expect ${fav} to win, perhaps narrowly.`;
     } else {
-      recAction = 'SMALL';
-      recBet = `Moneyline on ${fav}`;
-      recReason = `Edge exists but price not exciting at ${fav_ml.toFixed(2)}. Small play only — don't force it.`;
+      predAction = 'LIKELY';
+      predTitle = `${fav} the more probable winner`;
+      predReason = `${gap}-point edge on form and ranking. ${dog} have enough to threaten, but ${fav} should come out ahead.`;
     }
   } else if (gap >= 4) {
     if (d_ml >= 2.8 && d_ml <= 3.4) {
-      recAction = 'SMALL';
-      recBet = `Moneyline Draw at ${d_ml.toFixed(2)}`;
-      recReason = `Tight match — draw at this price has merit. Small stake. Don't overcommit on a close call.`;
+      predAction = 'LEAN';
+      predTitle = `Tight match — draw is statistically plausible`;
+      predReason = `Only ${gap} power points separate them. The market prices Draw at ${d_ml.toFixed(2)} (implied ~${Math.round(100/d_ml)}%) — a stalemate is realistic. Lean ${fav} otherwise.`;
     } else if (isFavHost) {
-      recAction = 'SMALL';
-      recBet = `Moneyline on ${fav} (host edge)`;
-      recReason = `Slight edge boosted by home advantage. Worth a small stake.`;
+      predAction = 'LEAN';
+      predTitle = `Slight lean to ${fav} on home soil`;
+      predReason = `Small power edge boosted by home advantage. Either side could win, but ${fav} has the conditions edge.`;
     } else {
-      recAction = 'PASS';
-      recReason = `Marginal edge, no value in draw price (${d_ml.toFixed(2)}), no host bump. Save your bankroll for a stronger pick down the road.`;
+      predAction = 'TOSS';
+      predTitle = `Genuinely close — could go either way`;
+      predReason = `${gap}-point gap with no host advantage. Outcome highly uncertain. Slight statistical lean to ${fav}, but a single moment of quality could decide it.`;
     }
   } else {
-    // gap < 4 — genuine toss-up
-    if (d_ml >= 2.6 && d_ml <= 3.4) {
-      recAction = 'SMALL';
-      recBet = `Moneyline Draw at ${d_ml.toFixed(2)}`;
-      recReason = `Even match — draw at ${d_ml.toFixed(2)} could be the value play. Small stake only.`;
-    } else if (hHost || aHost) {
+    // gap < 4 — true coin flip
+    if (hHost || aHost) {
       const host = hHost ? home : away;
-      recAction = 'SMALL';
-      recBet = `Moneyline on ${host} (host)`;
-      recReason = `Even teams, but the host has crowd + comfort edge. Small stake.`;
+      predAction = 'LEAN';
+      predTitle = `Even match — ${host} edged by home advantage`;
+      predReason = `Power scores essentially level. Host status (crowd, conditions, no travel) gives ${host} a small but real edge in tight matches.`;
     } else {
-      recAction = 'PASS';
-      recReason = `Genuine 50/50 with no host edge and no value in draw odds. Skip — wait for a clearer opportunity. Discipline wins the campaign.`;
+      predAction = 'TOSS';
+      predTitle = `True coin flip — too close to call`;
+      predReason = `Both sides within 4 power points, no host advantage, no clear differentiator. Outcome could swing on a single moment. Draw is statistically plausible (${d_ml.toFixed(2)} implied probability).`;
     }
   }
 
-  const stakeBadges = {
-    'BIG':    `<span class="ai-stake-badge ai-stake-big">🟢 BIG STAKE</span>`,
-    'MEDIUM': `<span class="ai-stake-badge ai-stake-med">🟡 MEDIUM STAKE</span>`,
-    'SMALL':  `<span class="ai-stake-badge ai-stake-small">🟠 SMALL STAKE</span>`,
-    'PASS':   `<span class="ai-stake-badge ai-stake-pass">⏸ PASS / SKIP</span>`,
+  const confBadges = {
+    'HIGH':   `<span class="ai-conf-badge ai-conf-high">🟢 HIGH CONFIDENCE</span>`,
+    'LIKELY': `<span class="ai-conf-badge ai-conf-likely">🟡 LIKELY OUTCOME</span>`,
+    'LEAN':   `<span class="ai-conf-badge ai-conf-lean">🟠 SLIGHT LEAN</span>`,
+    'TOSS':   `<span class="ai-conf-badge ai-conf-toss">⚖️ TOO CLOSE TO CALL</span>`,
   };
 
-  const recHTML = recAction === 'PASS'
-    ? `${stakeBadges[recAction]} <strong>Claude's call:</strong> Skip this match. <div class="ai-rec-reason">${recReason}</div>`
-    : `${stakeBadges[recAction]} <strong>Claude's pick:</strong> <span class="pick">${recBet}</span> <div class="ai-rec-reason">${recReason}</div>`;
+  const recHTML = `${confBadges[predAction]} <strong>Match prediction:</strong> ${predTitle} <div class="ai-rec-reason">${predReason}</div>`;
   lines.push(recHTML);
 
   return lines.slice(0, 10);
@@ -4397,11 +4375,6 @@ document.getElementById('koTabs').addEventListener('click', e => {
   });
 });
 
-document.getElementById('stakeToggle').addEventListener('change', () => {
-  renderTimeline();
-  renderGroups();
-});
-
 document.getElementById('aiToggle').addEventListener('change', e => {
   showAiAnalysis = e.target.checked;
   renderTimeline();
@@ -4421,9 +4394,9 @@ document.getElementById('snapDate').textContent = todayDate().toUpperCase();
 function ecFooter() {
   return `
     <div class="ec-footer">
-      <div class="disc">⚠ ODDS ACCURATE AS OF ${todayDate()} · SUBJECT TO CHANGE</div>
-      Information only · Not gambling promotion · Lines move before kick-off<br>
-      All bets settle on 90 min · Power = FIFA ranking + qualifying form · Times MYT · SGT
+      <div class="disc">⚠ PERSONAL USE · STATISTICAL ANALYSIS · NOT A BETTING SITE</div>
+      Bookmaker odds shown as reference data · Snapshot ${todayDate()}<br>
+      Match predictions are statistical analysis · Not betting advice · Times MYT · SGT
       <div class="ec-credit">Built by <strong>Sunny</strong> · <span class="ec-brand">Eru<span>Lab</span></span></div>
     </div>
   `;
