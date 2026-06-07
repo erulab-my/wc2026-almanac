@@ -1870,8 +1870,19 @@
         </div>
 
         <div class="guide-card">
-          <h3>3 · Moneyline (1X2)</h3>
-          <p>Pick <strong>Home win</strong>, <strong>Draw</strong>, or <strong>Away win</strong>. If right, you win — if not, you lose your stake. The colour shows likelihood:</p>
+          <h3>3 · Moneyline (1X2) — Reading the Odds</h3>
+          <p>The three outcomes are <strong>Home win</strong>, <strong>Draw</strong>, or <strong>Away win</strong>. Each shows a decimal odds number. <strong>Understanding what the number means is key:</strong></p>
+          <p style="background:rgba(212,175,55,0.08);border-left:3px solid var(--gold);padding:10px 12px;margin-top:10px;border-radius:4px;font-size:13px;line-height:1.6">
+            The decimal odds is the <strong>total return multiplier</strong> per unit. So:
+            <br>• <strong>1.50</strong> = 1.50× multiplier → 100 returns 150 (small gain, but the market sees this as very likely)
+            <br>• <strong>2.00</strong> = 2.00× multiplier → 100 returns 200 (even-money, market sees ~50/50)
+            <br>• <strong>4.40</strong> = 4.40× multiplier → 100 returns 440 (bigger return, but market sees it as less likely)
+            <br>• <strong>6.50</strong> = 6.50× multiplier → 100 returns 650 (much bigger return, market thinks unlikely)
+          </p>
+          <p style="margin-top:10px;font-size:12px;color:var(--text-dim)">
+            <strong>The rule:</strong> low number = likely outcome, smaller return. High number = unlikely outcome, bigger return. <strong>Implied probability ≈ 100 ÷ odds</strong> (so 1.50 ≈ 67%, 4.40 ≈ 23%, 6.50 ≈ 15%).
+          </p>
+          <p style="margin-top:10px">Colour shows likelihood at a glance:</p>
           <p style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">
             <span class="odd-cell ml-t1" style="padding:4px 8px;font-size:10px">VERY LIKELY</span>
             <span class="odd-cell ml-t3" style="padding:4px 8px;font-size:10px">LIKELY</span>
@@ -3266,15 +3277,16 @@ function fmtLine(L) { if (L === 0) return '0'; return (L > 0 ? '+' : '') + L; }
 function mlCommentary(home, away, h, d, a) {
   const fmt = (odd) => {
     const impProb = Math.round(100 / odd);
-    return `${odd.toFixed(2)} (implied probability ~${impProb}%)`;
+    const sample = Math.round(odd * 100);
+    return `<strong>${odd.toFixed(2)}</strong> &nbsp;·&nbsp; multiplier <strong>${odd.toFixed(2)}×</strong> (e.g. 100 → <span class="stake">${sample}</span>) &nbsp;·&nbsp; ~${impProb}% market probability`;
   };
   return `
     <div class="comm">
-      <div class="c-header">MONEYLINE (1X2) MARKET — bookmaker consensus per outcome:</div>
+      <div class="c-header">MONEYLINE (1X2) MARKET — what each outcome implies:</div>
       <div class="c-line"><span class="c-mark">▸</span><span><strong>${home}</strong> win: ${fmt(h)}</span></div>
       <div class="c-line"><span class="c-mark">▸</span><span><strong>Draw</strong>: ${fmt(d)}</span></div>
       <div class="c-line"><span class="c-mark">▸</span><span><strong>${away}</strong> win: ${fmt(a)}</span></div>
-      <div class="c-line" style="margin-top:6px;opacity:0.7;font-size:11px"><span class="c-mark">·</span><span>Lower odds = market thinks the outcome is more likely.</span></div>
+      <div class="c-line" style="margin-top:8px;opacity:0.75;font-size:11px;line-height:1.5"><span class="c-mark">·</span><span><strong>How to read decimal odds:</strong> the number is the <strong>total return multiplier</strong> per unit. <strong>Lower number = market thinks outcome more likely</strong> (smaller multiplier). <strong>Higher number = less likely outcome</strong> (bigger multiplier). Same data, two angles — multiplier and probability.</span></div>
     </div>
   `;
 }
