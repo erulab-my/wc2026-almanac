@@ -719,37 +719,47 @@
   .match-date .dow { font-size: 11px; letter-spacing: 2.5px; font-weight: 700; color: var(--text-dim); margin-bottom: 0; }
   .match-date .mo { font-size: 11px; letter-spacing: 2.5px; font-weight: 700; color: var(--gold); margin-top: 2px; margin-bottom: 4px; }
   .match-date .day { font-size: 52px; font-weight: 700; color: var(--text); font-family: 'Archivo Black', sans-serif; line-height: 0.95; margin: 0 0 4px; letter-spacing: -2.5px; text-shadow: 0 2px 8px rgba(0,0,0,0.4); }
-  /* Timezone label with flags */
+  /* Timezone label with flags - stacked on desktop (narrow column) */
   .match-date .tz {
-    display: inline-flex !important;
-    align-items: center;
+    display: flex !important;
+    flex-direction: column;
+    align-items: flex-start;
     gap: 4px;
     font-size: 9px;
     color: var(--text-dim);
     letter-spacing: 1px;
-    margin-top: 2px;
+    margin-top: 4px;
     font-weight: 700;
   }
+  .match-date .tz .tz-flags {
+    display: flex;
+    gap: 3px;
+  }
   .match-date .tz .fi {
-    width: 14px;
-    height: 10px;
+    width: 16px;
+    height: 11px;
     border-radius: 1px;
     box-shadow: 0 0 0 1px rgba(255,255,255,0.08);
   }
-  /* Group badge — prominent, blue-bordered */
+  .match-date .tz .tz-label {
+    font-size: 9px;
+    letter-spacing: 1.5px;
+  }
+  /* Group badge — prominent but compact, blue-bordered */
   .match-date .gp {
     display: inline-block;
     background: rgba(96, 165, 250, 0.12);
     border: 1px solid rgba(96, 165, 250, 0.4);
     color: #fff;
-    padding: 4px 10px;
+    padding: 3px 8px;
     border-radius: 4px;
-    font-size: 12px;
+    font-size: 10px;
     font-weight: 700;
-    letter-spacing: 1.5px;
+    letter-spacing: 1.2px;
     margin-top: 10px;
     box-shadow: 0 0 14px rgba(96, 165, 250, 0.15);
     text-transform: uppercase;
+    white-space: nowrap;
   }
   .match-date .time { color: var(--gold); font-weight: 700; margin-top: 8px; font-size: 14px; }
   .match-date .local-sep {
@@ -1687,13 +1697,22 @@
       margin-top: 0 !important;
       font-size: 10px !important;
       display: inline-flex !important;
+      flex-direction: row !important;
       align-items: center;
-      gap: 4px;
+      gap: 6px;
+    }
+    .match-date .tz .tz-flags {
+      display: inline-flex !important;
+      gap: 3px;
     }
     .match-date .tz .fi {
       width: 14px !important;
       height: 10px !important;
       border-radius: 1px !important;
+    }
+    .match-date .tz .tz-label {
+      font-size: 10px !important;
+      letter-spacing: 1px !important;
     }
     /* Group badge — prominent on mobile too */
     .match-date .gp {
@@ -3554,7 +3573,7 @@ function matchHTML(m, groupLetter) {
         </div>
         <div class="md-info">
           <div class="time">${fmt12(time)}</div>
-          <div class="tz"><span class="fi fi-my"></span><span class="fi fi-sg"></span> MYT · SGT</div>
+          <div class="tz"><span class="tz-flags"><span class="fi fi-my"></span><span class="fi fi-sg"></span></span><span class="tz-label">MYT · SGT</span></div>
           ${gpBadge}
           ${localBlock}
           ${stadiumBlock}
