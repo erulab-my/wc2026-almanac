@@ -716,12 +716,42 @@
   .match-date { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--text-dim); line-height: 1.4; padding-top: 2px; }
   /* Desktop: wrappers are transparent — preserves the existing flat vertical stack */
   .match-date .md-hero, .match-date .md-info { display: contents; }
-  .match-date .dow { font-size: 10px; letter-spacing: 2px; font-weight: 700; color: var(--text-dim); }
-  .match-date .mo { font-size: 10px; letter-spacing: 2px; font-weight: 700; color: var(--gold); margin-bottom: 4px; }
-  .match-date .day { font-size: 52px; font-weight: 700; color: var(--text); font-family: 'Archivo Black', sans-serif; line-height: 0.95; margin: 2px 0; letter-spacing: -2.5px; text-shadow: 0 2px 8px rgba(0,0,0,0.4); }
-  .match-date .time { color: var(--gold); font-weight: 700; margin-top: 6px; font-size: 12px; }
-  .match-date .tz { font-size: 8px; color: var(--text-dim); letter-spacing: 1px; margin-top: 2px; font-weight: 700; }
-  .match-date .gp { color: var(--blue); font-weight: 700; margin-top: 4px; font-size: 10px; letter-spacing: 1px; }
+  .match-date .dow { font-size: 11px; letter-spacing: 2.5px; font-weight: 700; color: var(--text-dim); margin-bottom: 0; }
+  .match-date .mo { font-size: 11px; letter-spacing: 2.5px; font-weight: 700; color: var(--gold); margin-top: 2px; margin-bottom: 4px; }
+  .match-date .day { font-size: 52px; font-weight: 700; color: var(--text); font-family: 'Archivo Black', sans-serif; line-height: 0.95; margin: 0 0 4px; letter-spacing: -2.5px; text-shadow: 0 2px 8px rgba(0,0,0,0.4); }
+  /* Timezone label with flags */
+  .match-date .tz {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 4px;
+    font-size: 9px;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+    margin-top: 2px;
+    font-weight: 700;
+  }
+  .match-date .tz .fi {
+    width: 14px;
+    height: 10px;
+    border-radius: 1px;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.08);
+  }
+  /* Group badge — prominent, blue-bordered */
+  .match-date .gp {
+    display: inline-block;
+    background: rgba(96, 165, 250, 0.12);
+    border: 1px solid rgba(96, 165, 250, 0.4);
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    margin-top: 10px;
+    box-shadow: 0 0 14px rgba(96, 165, 250, 0.15);
+    text-transform: uppercase;
+  }
+  .match-date .time { color: var(--gold); font-weight: 700; margin-top: 8px; font-size: 14px; }
   .match-date .local-sep {
     margin-top: 8px;
     padding-top: 8px;
@@ -1602,7 +1632,7 @@
       border-bottom: 1px dashed rgba(255,255,255,0.1);
       font-size: 10px;
     }
-    /* Hero column: stacked DOW / big day number / month */
+    /* Hero column: DOW + MO above big day number */
     .match-date .md-hero {
       display: flex !important;
       flex-direction: column;
@@ -1611,40 +1641,41 @@
       padding: 4px 10px;
       border-right: 1px solid rgba(255,255,255,0.1);
       line-height: 1;
-      min-width: 64px;
+      min-width: 70px;
     }
     .match-date .md-hero .dow {
-      font-size: 11px;
+      font-size: 11px !important;
       letter-spacing: 2.5px;
       color: var(--text-dim);
       font-weight: 700;
-      margin-bottom: 4px;
-    }
-    .match-date .md-hero .day {
-      font-size: 44px !important;
-      margin: 0 !important;
-      line-height: 0.95 !important;
-      color: var(--text);
-      letter-spacing: -2px;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+      margin-bottom: 0 !important;
     }
     .match-date .md-hero .mo {
-      font-size: 11px;
+      font-size: 11px !important;
       letter-spacing: 2.5px;
       color: var(--gold);
       font-weight: 700;
-      margin-top: 4px;
+      margin-top: 2px !important;
+      margin-bottom: 6px !important;
+    }
+    .match-date .md-hero .day {
+      font-size: 48px !important;
+      margin: 0 !important;
+      line-height: 0.95 !important;
+      color: var(--text);
+      letter-spacing: -2.5px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.4);
     }
     /* Info column: flex-wrap of all other date info */
     .match-date .md-info {
       display: flex !important;
       flex-wrap: wrap;
-      align-items: baseline;
+      align-items: center;
       gap: 6px 10px;
     }
     .match-date .md-info > div {
       display: inline-flex;
-      align-items: baseline;
+      align-items: center;
       gap: 4px;
       flex-wrap: wrap;
     }
@@ -1654,11 +1685,30 @@
     }
     .match-date .tz {
       margin-top: 0 !important;
-      font-size: 9px !important;
+      font-size: 10px !important;
+      display: inline-flex !important;
+      align-items: center;
+      gap: 4px;
     }
+    .match-date .tz .fi {
+      width: 14px !important;
+      height: 10px !important;
+      border-radius: 1px !important;
+    }
+    /* Group badge — prominent on mobile too */
     .match-date .gp {
+      display: inline-block !important;
+      background: rgba(96, 165, 250, 0.15) !important;
+      border: 1px solid rgba(96, 165, 250, 0.45) !important;
+      color: #fff !important;
+      padding: 4px 10px !important;
+      border-radius: 4px !important;
+      font-size: 13px !important;
+      font-weight: 700 !important;
+      letter-spacing: 1.5px !important;
       margin-top: 0 !important;
-      font-size: 12px !important;
+      box-shadow: 0 0 12px rgba(96, 165, 250, 0.2) !important;
+      text-transform: uppercase;
     }
     /* Original time block — inline pill */
     .match-date .local-sep {
@@ -3499,12 +3549,12 @@ function matchHTML(m, groupLetter) {
       <div class="match-date">
         <div class="md-hero">
           <div class="dow">${dow}</div>
-          <div class="day">${day}</div>
           <div class="mo">${mo}</div>
+          <div class="day">${day}</div>
         </div>
         <div class="md-info">
           <div class="time">${fmt12(time)}</div>
-          <div class="tz">MYT - SGT Time</div>
+          <div class="tz"><span class="fi fi-my"></span><span class="fi fi-sg"></span> MYT · SGT</div>
           ${gpBadge}
           ${localBlock}
           ${stadiumBlock}
