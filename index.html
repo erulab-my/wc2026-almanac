@@ -1040,28 +1040,35 @@
   /* AH single-line cells, color mirrors team's ML cell */
   .ah-row { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
   .ah-cell {
-    padding: 10px 12px;
+    padding: 10px 14px;
     border-radius: 8px;
     display: flex;
-    align-items: center;
-    gap: 8px;
+    flex-direction: column;
+    gap: 4px;
     border: 1px solid rgba(255,255,255,0.06);
     color: #fff;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
     font-weight: 700;
     min-width: 0;
   }
   .ah-cell .ah-team {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    flex: 1;
-    min-width: 0;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.2;
+    /* Allow wrapping for long names — no truncation */
+    white-space: normal;
+    word-break: break-word;
   }
-  .ah-cell .ah-sep { opacity: 0.4; flex-shrink: 0; }
-  .ah-cell .ah-line { flex-shrink: 0; }
-  .ah-cell .ah-val { font-size: 14px; flex-shrink: 0; }
+  .ah-cell .ah-bottom {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.85);
+  }
+  .ah-cell .ah-sep { opacity: 0.4; }
+  .ah-cell .ah-line { font-size: 11px; }
+  .ah-cell .ah-val { font-size: 16px; margin-left: auto; }
 
   .comm {
     margin-top: 10px;
@@ -1144,6 +1151,10 @@
     flex-shrink: 0;
     font-weight: 700;
   }
+  .ai-content .ai-text {
+    flex: 1;
+    min-width: 0;
+  }
   .ai-content .ai-rec {
     margin-top: 6px;
     padding: 12px 14px;
@@ -1224,15 +1235,49 @@
   /* ---------------- STANDINGS VIEW ---------------- */
   .standings, .squads { display: none; }
   .standings.active, .squads.active { display: block; }
+  .conf-tabs-wrap {
+    position: relative;
+    margin-bottom: 24px;
+  }
   .conf-tabs {
     display: flex;
     gap: 6px;
     overflow-x: auto;
-    scrollbar-width: none;
-    margin-bottom: 24px;
+    scrollbar-width: thin;
     flex-wrap: wrap;
+    -webkit-overflow-scrolling: touch;
   }
-  .conf-tabs::-webkit-scrollbar { display: none; }
+  .conf-tabs::-webkit-scrollbar { height: 4px; }
+  .conf-tabs::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  /* Scroll hint - "more →" indicator visible on mobile when tabs overflow */
+  .conf-tabs-wrap::after {
+    content: '';
+    position: absolute;
+    right: 0; top: 0; bottom: 8px;
+    width: 50px;
+    background: linear-gradient(to right, transparent, var(--bg) 70%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .conf-tabs-wrap.scrollable::after { opacity: 1; }
+  .conf-tabs-hint {
+    display: none;
+    text-align: right;
+    font-size: 10px;
+    color: var(--gold);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 1.5px;
+    margin-top: 6px;
+    padding-right: 4px;
+    font-weight: 700;
+    animation: pulseHint 1.6s infinite;
+  }
+  .conf-tabs-wrap.scrollable .conf-tabs-hint { display: block; }
+  @keyframes pulseHint {
+    0%, 100% { opacity: 0.5; transform: translateX(0); }
+    50% { opacity: 1; transform: translateX(4px); }
+  }
   .conf-tab {
     flex-shrink: 0;
     padding: 8px 14px;
@@ -1244,6 +1289,7 @@
     font-weight: 600;
     cursor: pointer;
     font-family: 'DM Sans', sans-serif;
+    white-space: nowrap;
   }
   .conf-tab.active { background: var(--gold); color: #0a0e1a; border-color: var(--gold); }
   .conf-section { display: none; }
@@ -1895,11 +1941,11 @@
   <div class="view-toggle" id="viewToggle">
     <button class="view-btn active" data-view="timeline">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="4" cy="6" r="1" fill="currentColor"/><circle cx="4" cy="12" r="1" fill="currentColor"/><circle cx="4" cy="18" r="1" fill="currentColor"/></svg>
-      By Date
+      Matches by Date
     </button>
     <button class="view-btn" data-view="groups">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-      By Group
+      Matches by Group
     </button>
     <button class="view-btn" data-view="ko">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
@@ -3334,7 +3380,7 @@ function matchHTML(m, groupLetter) {
   const score = getScore(matchId);
   const scoreBlock = score
     ? `<div class="score-cell filled" data-mid="${matchId}"><div class="score-num">${score.home} - ${score.away}</div><div class="score-tag">FULL TIME</div></div>`
-    : `<div class="score-cell" data-mid="${matchId}"><div class="score-num">— : —</div><div class="score-tag">tap to enter</div></div>`;
+    : `<div class="score-cell" data-mid="${matchId}"><div class="score-num">— : —</div><div class="score-tag">tap to enter result</div></div>`;
   const mlComm = simplifiedMode ? '' : mlCommentary(home, away, h, d, a);
   const ahComm = simplifiedMode ? '' : `
         <div class="comm">
@@ -3359,7 +3405,7 @@ function matchHTML(m, groupLetter) {
           <div class="ai-content">
             ${aiLines.map((line, i) => i === last
               ? `<div class="ai-rec">${line}</div>`
-              : `<div class="ai-line"><span class="ai-bullet">▸</span> ${line}</div>`
+              : `<div class="ai-line"><span class="ai-bullet">▸</span><span class="ai-text">${line}</span></div>`
             ).join('')}
           </div>
           <div class="ai-footer">
@@ -3426,18 +3472,20 @@ function matchHTML(m, groupLetter) {
           <div class="odds-label">Asian Handicap · 90 min</div>
           <div class="ah-row">
             <div class="ah-cell ${mlTier(h)}">
-              <span class="ah-team">${home}</span>
-              <span class="ah-sep">·</span>
-              <span class="ah-line">AH ${fmtLine(hLine)}</span>
-              <span class="ah-sep">·</span>
-              <span class="ah-val">${hOdd.toFixed(2)}</span>
+              <div class="ah-team">${home}</div>
+              <div class="ah-bottom">
+                <span class="ah-line">AH ${fmtLine(hLine)}</span>
+                <span class="ah-sep">·</span>
+                <span class="ah-val">${hOdd.toFixed(2)}</span>
+              </div>
             </div>
             <div class="ah-cell ${mlTier(a)}">
-              <span class="ah-team">${away}</span>
-              <span class="ah-sep">·</span>
-              <span class="ah-line">AH ${fmtLine(aLine)}</span>
-              <span class="ah-sep">·</span>
-              <span class="ah-val">${aOdd.toFixed(2)}</span>
+              <div class="ah-team">${away}</div>
+              <div class="ah-bottom">
+                <span class="ah-line">AH ${fmtLine(aLine)}</span>
+                <span class="ah-sep">·</span>
+                <span class="ah-val">${aOdd.toFixed(2)}</span>
+              </div>
             </div>
           </div>
         </div>
@@ -4237,8 +4285,11 @@ function renderStandings() {
   let html = `
     <div style="font-family:'Archivo Black',sans-serif;font-size:28px;color:var(--text);letter-spacing:-0.8px;margin-bottom:6px">Qualifying Stage <span style="color:var(--gold)">Result</span></div>
     <div style="color:var(--text-dim);font-size:13px;margin-bottom:22px;line-height:1.5">Final group tables from each confederation's road to WC2026. Qualified teams highlighted; playoff winners marked with <span style="color:var(--amber);font-weight:700">PO ✓</span>.</div>
-    <div class="conf-tabs" id="confTabs">
-      ${confs.map((c, i) => `<button class="conf-tab ${i === 0 ? 'active' : ''}" data-conf="${c}">${c}</button>`).join('')}
+    <div class="conf-tabs-wrap" id="confTabsWrap">
+      <div class="conf-tabs" id="confTabs">
+        ${confs.map((c, i) => `<button class="conf-tab ${i === 0 ? 'active' : ''}" data-conf="${c}">${c}</button>`).join('')}
+      </div>
+      <div class="conf-tabs-hint">SWIPE FOR MORE →</div>
     </div>
   `;
   confs.forEach((c, i) => {
@@ -4290,7 +4341,25 @@ function renderStandings() {
     document.querySelectorAll('.conf-section').forEach(s => {
       s.classList.toggle('active', s.dataset.confSection === btn.dataset.conf);
     });
+    // Scroll the clicked tab into view (helps when tabs overflow)
+    btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
   });
+  // Detect overflow: show "swipe for more →" hint when tabs scroll
+  const updateScrollHint = () => {
+    const wrap = document.getElementById('confTabsWrap');
+    const tabs = document.getElementById('confTabs');
+    if (!wrap || !tabs) return;
+    const overflowing = tabs.scrollWidth > tabs.clientWidth + 2;
+    wrap.classList.toggle('scrollable', overflowing);
+  };
+  updateScrollHint();
+  window.addEventListener('resize', updateScrollHint);
+  // Hide hint once user scrolls
+  document.getElementById('confTabs').addEventListener('scroll', () => {
+    const wrap = document.getElementById('confTabsWrap');
+    const tabs = document.getElementById('confTabs');
+    if (tabs.scrollLeft > 8) wrap.classList.remove('scrollable');
+  }, { passive: true });
 }
 
 function renderSquads() {
