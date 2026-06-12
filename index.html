@@ -103,6 +103,45 @@
   }
   .pill .dot { color: var(--gold); margin-right: 6px; }
 
+  /* Rev / What's New badge */
+  .rev-badge {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    max-width: 680px;
+    margin: 20px auto 0;
+    padding: 12px 16px;
+    background: linear-gradient(135deg, rgba(96,165,250,0.10), rgba(168,85,247,0.08));
+    border: 1px solid rgba(96,165,250,0.35);
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(96,165,250,0.08);
+  }
+  .rev-badge .rev-tag {
+    flex-shrink: 0;
+    background: var(--blue);
+    color: #fff;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    margin-top: 1px;
+    box-shadow: 0 0 12px rgba(96,165,250,0.4);
+  }
+  .rev-badge .rev-text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12.5px;
+    line-height: 1.55;
+    color: var(--text-soft);
+    text-align: left;
+  }
+  .rev-badge .rev-text strong { color: var(--text); }
+  @media (max-width: 560px) {
+    .rev-badge { flex-direction: column; gap: 8px; align-items: flex-start; }
+    .rev-badge .rev-text { font-size: 12px; }
+  }
+
   /* Export dropdown panel */
   .export-panel {
     position: absolute;
@@ -1047,6 +1086,69 @@
 
   /* ---------------- ODDS ---------------- */
   .odds-block { margin-top: 18px; }
+  /* Per-match odds toggle button — opt-in disclosure */
+  .odds-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    margin-top: 16px;
+    padding: 11px 16px;
+    background: var(--bg-card-2);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    color: var(--text-soft);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    text-align: left;
+  }
+  .odds-toggle:hover {
+    background: #1a2238;
+    border-color: rgba(212,175,55,0.35);
+  }
+  .odds-toggle .odds-toggle-icon { font-size: 15px; flex-shrink: 0; }
+  .odds-toggle .odds-toggle-text { flex: 1; }
+  .odds-toggle .odds-toggle-arrow {
+    font-size: 12px;
+    color: var(--text-dim);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  .odds-toggle[aria-expanded="true"] {
+    background: #1a2238;
+    border-color: rgba(212,175,55,0.4);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .odds-toggle[aria-expanded="true"] .odds-toggle-arrow { transform: rotate(180deg); }
+  .odds-toggle[aria-expanded="true"] .odds-toggle-text::after {
+    content: ' — hide';
+    color: var(--text-dim);
+    font-weight: 400;
+  }
+  .odds-collapse {
+    border: 1px solid rgba(212,175,55,0.4);
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+    padding: 16px;
+    margin-bottom: 4px;
+    background: rgba(10,14,26,0.4);
+  }
+  .odds-collapse[hidden] { display: none; }
+  .odds-collapse .odds-block:first-of-type { margin-top: 0; }
+  .odds-intro {
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--text-dim);
+    padding: 10px 12px;
+    background: rgba(245,158,11,0.06);
+    border-left: 3px solid var(--amber);
+    border-radius: 4px;
+    margin-bottom: 16px;
+  }
   .odds-label {
     font-family: 'JetBrains Mono', monospace;
     font-size: 9px;
@@ -2085,12 +2187,16 @@
 <header>
   <div class="eyebrow">USA · CANADA · MEXICO · MYT · SGT</div>
   <h1>FIFA World Cup<br><span class="accent">2026</span></h1>
-  <p class="sub">All 104 matches in <strong>Malaysia &amp; Singapore local time</strong> (UTC+8). Team power ratings from FIFA rankings + qualifying form. Moneyline + Asian Handicap odds explained in plain English.</p>
+  <p class="sub">All 104 matches in <strong>Malaysia &amp; Singapore local time</strong> (UTC+8). Each match shows <strong>Claude's statistical match read</strong>. Tap any match to reveal simulated odds &amp; how they work.</p>
   <div class="pill-row">
     <div class="pill"><span class="dot">●</span>JUN 11 → JUL 19</div>
     <div class="pill"><span class="dot">●</span>48 TEAMS</div>
     <div class="pill"><span class="dot">●</span>16 STADIUMS</div>
     <div class="pill"><span class="dot">●</span>MYT / SGT</div>
+  </div>
+  <div class="rev-badge">
+    <span class="rev-tag">REV B</span>
+    <span class="rev-text">Updated 12 Jun 2026 · 12:45 PM MYT — Cleaner layout: each match now leads with Claude's analysis; odds are tucked behind a tap. Plus new <strong>Group Standings</strong> with live tables &amp; Day 1 results.</span>
   </div>
 </header>
 
@@ -2111,7 +2217,7 @@
   <div class="wt-inner">
     <div class="wt-icon">💡</div>
     <div class="wt-text">
-      <strong>Match Read mode.</strong> Each match includes <strong>🤖 Claude's statistical prediction</strong> — like a TV pundit's match preview, drawing on power scores, qualifying form, host status, climate, notable players, debut nations, and World Cup pedigree. Confidence tiers: <span style="color:#4ade80;font-weight:700">🟢 HIGH</span> / <span style="color:var(--gold-bright);font-weight:700">🟡 LIKELY</span> / <span style="color:#fb923c;font-weight:700">🟠 LEAN</span> / <span style="color:#94a3b8;font-weight:700">⚖️ TOO CLOSE</span>. Tap <strong>📋 Simplified</strong> to hide the rules commentary. Toggle <strong>🤖 AI</strong> separately.
+      <strong>How to read this.</strong> Each match leads with <strong>🤖 Claude's Match Read</strong> — a statistical prediction like a TV pundit's preview, drawing on power scores, qualifying form, host status, climate, notable players, and World Cup pedigree. Confidence tiers: <span style="color:#4ade80;font-weight:700">🟢 HIGH</span> / <span style="color:var(--gold-bright);font-weight:700">🟡 LIKELY</span> / <span style="color:#fb923c;font-weight:700">🟠 LEAN</span> / <span style="color:#94a3b8;font-weight:700">⚖️ TOO CLOSE</span>. Want the numbers behind it? Tap <strong>📊 Show simulated odds</strong> on any match to reveal the moneyline, handicap, and a plain-English explanation — only for that match.
     </div>
     <button class="wt-close" onclick="dismissWelcomeTip()">Got it ×</button>
   </div>
@@ -2266,14 +2372,12 @@
       Records
     </button>
   </div>
-  <div class="mode-toggle" id="modeToggle" title="Complementary filter — works with By Date or By Group">
-    <span class="mode-label" style="padding:0 8px 0 12px;align-self:center">FILTER:</span>
-    <button class="mode-btn active" data-mode="explanation">📖 Explanation</button>
-    <button class="mode-btn" data-mode="simplified">📋 Simplified</button>
-    <label class="switch-label" style="padding-right:8px">
+  <div class="mode-toggle" id="modeToggle" title="Show or hide Claude's match analysis">
+    <span class="mode-label" style="padding:0 8px 0 12px;align-self:center">CLAUDE'S READ:</span>
+    <label class="switch-label" style="padding-right:12px">
       <input type="checkbox" id="aiToggle" checked>
       <span class="switch"></span>
-      🤖 AI
+      🤖 Show analysis
     </label>
   </div>
 </div>
@@ -2619,11 +2723,11 @@ try {
 } catch(e) {}
 
 function dismissWelcomeTip() {
-  try { localStorage.setItem('wc26_welc_v1', '1'); } catch(e) {}
+  try { localStorage.setItem('wc26_welc_v2', '1'); } catch(e) {}
   document.getElementById('welcomeTip').classList.add('dismissed');
 }
 try {
-  if (localStorage.getItem('wc26_welc_v1') === '1') {
+  if (localStorage.getItem('wc26_welc_v2') === '1') {
     document.getElementById('welcomeTip').classList.add('dismissed');
   }
 } catch(e) {}
@@ -3710,8 +3814,8 @@ function matchHTML(m, groupLetter) {
   const scoreBlock = score
     ? `<div class="score-cell filled" data-mid="${matchId}"><div class="score-num">${score.home} - ${score.away}</div><div class="score-tag">FULL TIME</div></div>`
     : `<div class="score-cell" data-mid="${matchId}"><div class="score-num">— : —</div><div class="score-tag">tap to enter result</div></div>`;
-  const mlComm = simplifiedMode ? '' : mlCommentary(home, away, h, d, a);
-  const ahComm = simplifiedMode ? '' : `
+  const mlComm = mlCommentary(home, away, h, d, a);
+  const ahComm = `
         <div class="comm">
           <div class="c-header">ASIAN HANDICAP MARKET — margin reference:</div>
           <div class="c-line"><span class="c-mark">▸</span><span>${ahCommentary(hLine, home)}</span></div>
@@ -3789,38 +3893,48 @@ function matchHTML(m, groupLetter) {
           ${scoreBlock}
           ${teamHTML(away, 'away', venue)}
         </div>
-        <div class="odds-block">
-          <div class="odds-label">Moneyline (1X2) · 90 min</div>
-          <div class="odds-row">
-            <div class="odd-cell ${mlTier(h)}"><div class="lab">HOME</div><div class="val">${h.toFixed(2)}</div></div>
-            <div class="odd-cell ml-draw"><div class="lab">DRAW</div><div class="val">${d.toFixed(2)}</div></div>
-            <div class="odd-cell ${mlTier(a)}"><div class="lab">AWAY</div><div class="val">${a.toFixed(2)}</div></div>
-          </div>
-        </div>
-        ${mlComm}
-        <div class="odds-block">
-          <div class="odds-label">Asian Handicap · 90 min</div>
-          <div class="ah-row">
-            <div class="ah-cell ${mlTier(h)}">
-              <div class="ah-team">${home}</div>
-              <div class="ah-bottom">
-                <span class="ah-line">AH ${fmtLine(hLine)}</span>
-                <span class="ah-sep">·</span>
-                <span class="ah-val">${hOdd.toFixed(2)}</span>
-              </div>
-            </div>
-            <div class="ah-cell ${mlTier(a)}">
-              <div class="ah-team">${away}</div>
-              <div class="ah-bottom">
-                <span class="ah-line">AH ${fmtLine(aLine)}</span>
-                <span class="ah-sep">·</span>
-                <span class="ah-val">${aOdd.toFixed(2)}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        ${ahComm}
         ${aiBlock}
+        <button class="odds-toggle" data-odds-toggle="${matchId}" aria-expanded="false">
+          <span class="odds-toggle-icon">📊</span>
+          <span class="odds-toggle-text">Show simulated odds &amp; how they work</span>
+          <span class="odds-toggle-arrow">▾</span>
+        </button>
+        <div class="odds-collapse" id="odds-${matchId}" hidden>
+          <div class="odds-intro">
+            These are <strong>simulated betting-market odds</strong> generated from team power scores — shown for educational context only, to illustrate how bookmakers express probability as numbers. <strong>Not real odds. Not betting advice.</strong>
+          </div>
+          <div class="odds-block">
+            <div class="odds-label">Moneyline (1X2) · 90 min</div>
+            <div class="odds-row">
+              <div class="odd-cell ${mlTier(h)}"><div class="lab">HOME</div><div class="val">${h.toFixed(2)}</div></div>
+              <div class="odd-cell ml-draw"><div class="lab">DRAW</div><div class="val">${d.toFixed(2)}</div></div>
+              <div class="odd-cell ${mlTier(a)}"><div class="lab">AWAY</div><div class="val">${a.toFixed(2)}</div></div>
+            </div>
+          </div>
+          ${mlComm}
+          <div class="odds-block">
+            <div class="odds-label">Asian Handicap · 90 min</div>
+            <div class="ah-row">
+              <div class="ah-cell ${mlTier(h)}">
+                <div class="ah-team">${home}</div>
+                <div class="ah-bottom">
+                  <span class="ah-line">AH ${fmtLine(hLine)}</span>
+                  <span class="ah-sep">·</span>
+                  <span class="ah-val">${hOdd.toFixed(2)}</span>
+                </div>
+              </div>
+              <div class="ah-cell ${mlTier(a)}">
+                <div class="ah-team">${away}</div>
+                <div class="ah-bottom">
+                  <span class="ah-line">AH ${fmtLine(aLine)}</span>
+                  <span class="ah-sep">·</span>
+                  <span class="ah-val">${aOdd.toFixed(2)}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          ${ahComm}
+        </div>
       </div>
     </div>
   `;
@@ -4980,17 +5094,6 @@ document.getElementById('viewToggle').addEventListener('click', e => {
   closeExportPanel();
 });
 
-/* Mode toggle: Explanation ↔ Simplified */
-document.getElementById('modeToggle').addEventListener('click', e => {
-  const btn = e.target.closest('.mode-btn');
-  if (!btn) return;
-  document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  simplifiedMode = btn.dataset.mode === 'simplified';
-  renderTimeline();
-  renderGroups();
-});
-
 document.getElementById('koTabs').addEventListener('click', e => {
   const btn = e.target.closest('.tab');
   if (!btn) return;
@@ -5214,6 +5317,20 @@ document.addEventListener('click', e => {
   const scoreEl = e.target.closest('.score-cell');
   if (scoreEl && scoreEl.dataset.mid) {
     editScore(scoreEl.dataset.mid);
+    return;
+  }
+  // Per-match odds toggle → show/hide simulated odds
+  const oddsBtn = e.target.closest('.odds-toggle');
+  if (oddsBtn) {
+    // Scope to the panel within THIS match (avoids duplicate-ID clash
+    // between "Matches by Date" and "Matches by Group" views)
+    const matchEl = oddsBtn.closest('.match');
+    const panel = matchEl ? matchEl.querySelector('.odds-collapse') : null;
+    if (panel) {
+      const isHidden = panel.hasAttribute('hidden');
+      if (isHidden) { panel.removeAttribute('hidden'); oddsBtn.setAttribute('aria-expanded', 'true'); }
+      else { panel.setAttribute('hidden', ''); oddsBtn.setAttribute('aria-expanded', 'false'); }
+    }
     return;
   }
   // Tip click (mobile tap-to-show)
