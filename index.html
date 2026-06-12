@@ -1422,6 +1422,63 @@
     background: var(--amber);
     color: #1a1300;
   }
+  /* Group Stage standings row colors */
+  .gs-table tr.gs-q1 td { background: rgba(34,197,94,0.10); border-left: 3px solid var(--green); }
+  .gs-table tr.gs-q1 td:first-child { border-left: 3px solid var(--green); }
+  .gs-table tr.gs-q2 td { background: rgba(34,197,94,0.06); border-left: 3px solid var(--green); }
+  .gs-table tr.gs-watch td { background: rgba(245,158,11,0.07); border-left: 3px solid var(--amber); }
+  .gs-table tr.gs-out td { background: rgba(239,68,68,0.05); border-left: 3px solid rgba(239,68,68,0.5); }
+  .gs-table tr.gs-q1 .pos, .gs-table tr.gs-q2 .pos { color: var(--green); }
+  .gs-table tr.gs-watch .pos { color: var(--amber); }
+  .gs-table tr.gs-out .pos { color: rgba(239,68,68,0.7); }
+  .gs-card-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 4px;
+  }
+  .gs-card-header .matches-played {
+    font-size: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+  }
+  .gs-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 12px 16px;
+    background: var(--bg-card);
+    border-radius: 12px;
+    margin-bottom: 24px;
+    font-size: 11px;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text-dim);
+  }
+  .gs-legend-item { display: flex; align-items: center; gap: 6px; }
+  .gs-legend-swatch { width: 14px; height: 14px; border-radius: 3px; }
+  .gs-legend-swatch.q { background: rgba(34,197,94,0.30); border-left: 3px solid var(--green); }
+  .gs-legend-swatch.w { background: rgba(245,158,11,0.20); border-left: 3px solid var(--amber); }
+  .gs-legend-swatch.o { background: rgba(239,68,68,0.18); border-left: 3px solid rgba(239,68,68,0.5); }
+  .gs-third-place {
+    margin-top: 28px;
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 18px;
+  }
+  .gs-third-place h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 16px;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+  .gs-third-place .stp-note {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-bottom: 14px;
+    line-height: 1.5;
+  }
 
   /* ---------------- SQUADS VIEW ---------------- */
   .squad-grid {
@@ -1515,6 +1572,126 @@
     letter-spacing: 0.5px;
   }
   .footer-disclaimer .warn { color: var(--amber); font-weight: 700; }
+  /* Visitor stats panel */
+  .stats-panel {
+    max-width: 640px;
+    margin: 28px auto 0;
+    padding-top: 24px;
+    border-top: 1px dashed var(--line);
+  }
+  .stats-panel-title {
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .stats-row {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+  }
+  .stat-box {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 22px;
+    text-align: center;
+    min-width: 110px;
+  }
+  .stat-box .stat-num {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 26px;
+    color: var(--gold);
+    line-height: 1;
+    letter-spacing: -1px;
+  }
+  .stat-box .stat-lab {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+  .stat-box .stat-num.loading {
+    font-size: 14px;
+    color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .stats-countries {
+    max-width: 420px;
+    margin: 0 auto;
+  }
+  .stats-countries-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+  .country-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 0;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+  }
+  .country-row .c-flag {
+    width: 22px;
+    height: 16px;
+    border-radius: 2px;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.1);
+    flex-shrink: 0;
+  }
+  .country-row .c-name { color: var(--text-soft); flex-shrink: 0; min-width: 90px; }
+  .country-row .c-bar-wrap {
+    flex: 1;
+    height: 8px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+  .country-row .c-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), #b8860b);
+    border-radius: 100px;
+  }
+  .country-row .c-count {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    min-width: 34px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .stats-dash-link {
+    display: block;
+    text-align: center;
+    margin-top: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--blue);
+    letter-spacing: 1px;
+    text-decoration: none;
+  }
+  .stats-dash-link:hover { text-decoration: underline; }
+  .stats-note {
+    text-align: center;
+    font-size: 10px;
+    color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace;
+    margin-top: 10px;
+    opacity: 0.7;
+    line-height: 1.5;
+  }
   .footer-credit {
     margin-top: 28px;
     padding-top: 24px;
@@ -2072,6 +2249,10 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
       Knockouts
     </button>
+    <button class="view-btn" data-view="gs">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M4 10h16M9 4v16"/></svg>
+      Group Standings
+    </button>
     <button class="view-btn" data-view="standings">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17V8l5 4 5-8 5 7 3-5v11z"/></svg>
       Qualifying Result
@@ -2133,6 +2314,7 @@
     <div id="final-view" class="ko-section"></div>
   </div>
   <div id="standings-view" class="standings"></div>
+  <div id="gs-view" class="standings"></div>
   <div id="squads-view" class="squads"></div>
   <div id="records-view" class="standings"></div>
 </main>
@@ -2149,6 +2331,29 @@
     <br>
     DATA SNAPSHOT: <span id="snapDate"></span>
   </div>
+
+  <div class="stats-panel" id="statsPanel">
+    <div class="stats-panel-title">📊 Visitor Stats</div>
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="stat-num loading" id="statTotal">···</div>
+        <div class="stat-lab">Total Views</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num loading" id="statToday">···</div>
+        <div class="stat-lab">This Page</div>
+      </div>
+    </div>
+    <div class="stats-countries">
+      <div class="stats-countries-title">Where Visitors Come From</div>
+      <div id="statCountryList">
+        <div class="stats-note">View the full dashboard below for the live world map, top countries, referrers, and browser breakdown.</div>
+      </div>
+    </div>
+    <a class="stats-dash-link" id="statsDashLink" href="https://erulab-my.goatcounter.com" target="_blank" rel="noopener">View full dashboard with country map ↗</a>
+    <div class="stats-note">Cookie-free · No personal data collected · Powered by GoatCounter</div>
+  </div>
+
   <div class="footer-credit">
     Built by <strong>Sunny</strong> · <span class="brand-eru">Eru<span>Lab</span></span><br>
     <span class="credit-sub">AI &amp; data engineering for Penang's manufacturing &amp; beyond</span>
@@ -2452,6 +2657,7 @@ function editScore(matchId) {
   }
   renderTimeline();
   renderGroups();
+  renderGroupStandings();
 }
 
 function clearAllScores() {
@@ -2459,6 +2665,7 @@ function clearAllScores() {
   Object.keys(localStorage).filter(k => k.startsWith('wc26_score_')).forEach(k => localStorage.removeItem(k));
   renderTimeline();
   renderGroups();
+  renderGroupStandings();
 }
 
 function exportScores() {
@@ -2488,6 +2695,7 @@ function importScores() {
         });
         renderTimeline();
         renderGroups();
+        renderGroupStandings();
         showToast(`Imported ${Object.keys(data).length} scores`);
       } catch (err) { alert('Invalid file format'); }
     };
@@ -4401,6 +4609,203 @@ function renderRecords() {
   root.innerHTML = html;
 }
 
+/* ============================================================
+   GROUP STANDINGS (WC2026 group stage table)
+   ============================================================ */
+function applyKnownResults() {
+  // Day 1 actual results from WC2026 (June 11, 2026 local US time = June 12 MYT)
+  const known = [
+    { id: '2026_06_12_Mexico_South_Africa',     home: 2, away: 0 },
+    { id: '2026_06_12_South_Korea_Czechia',     home: 2, away: 1 }
+  ];
+  known.forEach(r => {
+    const key = 'wc26_score_' + r.id;
+    if (!localStorage.getItem(key)) {
+      localStorage.setItem(key, JSON.stringify({ home: r.home, away: r.away }));
+    }
+  });
+}
+applyKnownResults();
+
+function computeGroupStandings() {
+  const result = {};
+  Object.entries(groups).forEach(([grp, data]) => {
+    // Initialize all 4 teams
+    result[grp] = data.teams.map(team => ({
+      team, P: 0, W: 0, D: 0, L: 0, GF: 0, GA: 0, GD: 0, Pts: 0
+    }));
+    // Walk through matches, apply scores
+    data.matches.forEach(m => {
+      const [date, time, home, away] = m;
+      const matchId = `${date}_${home}_${away}`.replace(/[^a-zA-Z0-9_]/g, '_');
+      const score = getScore(matchId);
+      if (!score) return;
+      const hT = result[grp].find(t => t.team === home);
+      const aT = result[grp].find(t => t.team === away);
+      if (!hT || !aT) return;
+      hT.P++; aT.P++;
+      hT.GF += score.home; hT.GA += score.away;
+      aT.GF += score.away; aT.GA += score.home;
+      if (score.home > score.away)       { hT.W++; hT.Pts += 3; aT.L++; }
+      else if (score.home < score.away)  { aT.W++; aT.Pts += 3; hT.L++; }
+      else                               { hT.D++; aT.D++; hT.Pts++; aT.Pts++; }
+    });
+    // Compute GD and sort: Pts desc, GD desc, GF desc, name asc
+    result[grp].forEach(t => t.GD = t.GF - t.GA);
+    result[grp].sort((a, b) =>
+      b.Pts - a.Pts ||
+      b.GD - a.GD ||
+      b.GF - a.GF ||
+      a.team.localeCompare(b.team)
+    );
+  });
+  return result;
+}
+
+function gsRowClass(pos, allTeamsPlayed) {
+  // Until matches start, no highlighting
+  if (!allTeamsPlayed) return '';
+  if (pos === 0) return 'gs-q1';
+  if (pos === 1) return 'gs-q2';
+  if (pos === 2) return 'gs-watch';
+  return 'gs-out';
+}
+
+function renderGroupStandings() {
+  const root = document.getElementById('gs-view');
+  const stand = computeGroupStandings();
+  const groupKeys = Object.keys(groups); // A through L
+
+  // Count matches with scores entered
+  let totalMatchesWithScores = 0;
+  let totalMatches = 0;
+  Object.values(groups).forEach(g => {
+    totalMatches += g.matches.length;
+    g.matches.forEach(m => {
+      const matchId = `${m[0]}_${m[2]}_${m[3]}`.replace(/[^a-zA-Z0-9_]/g, '_');
+      if (getScore(matchId)) totalMatchesWithScores++;
+    });
+  });
+
+  // Collect 3rd-placed teams across all groups for cross-group ranking
+  const thirdPlaced = groupKeys.map(g => ({ group: g, ...stand[g][2] }))
+    .filter(t => t.P > 0)
+    .sort((a, b) => b.Pts - a.Pts || b.GD - a.GD || b.GF - a.GF || a.team.localeCompare(b.team));
+
+  let html = `
+    <div style="font-family:'Archivo Black',sans-serif;font-size:28px;color:var(--text);letter-spacing:-0.8px;margin-bottom:6px">Group Stage <span style="color:var(--gold)">Standings</span></div>
+    <div style="color:var(--text-dim);font-size:13px;margin-bottom:18px;line-height:1.5">
+      Live group tables — updates automatically as match results are entered. 
+      Currently showing <strong style="color:var(--gold)">${totalMatchesWithScores} of ${totalMatches}</strong> group-stage matches.
+    </div>
+    <div class="gs-legend">
+      <div class="gs-legend-item"><div class="gs-legend-swatch q"></div> Top 2 advance directly to Round of 32</div>
+      <div class="gs-legend-item"><div class="gs-legend-swatch w"></div> 3rd place — 8 best across all groups advance</div>
+      <div class="gs-legend-item"><div class="gs-legend-swatch o"></div> 4th place — eliminated</div>
+    </div>
+    <div class="standings-grid">
+  `;
+
+  groupKeys.forEach(g => {
+    const rows = stand[g];
+    const anyPlayed = rows.some(r => r.P > 0);
+    html += `
+      <div class="standing-card">
+        <div class="gs-card-header">
+          <div class="standing-title">Group ${g}</div>
+          <div class="matches-played">${rows.reduce((s,r) => s + r.P, 0) / 2} / 6 played</div>
+        </div>
+        <table class="standing-table gs-table">
+          <thead>
+            <tr>
+              <th class="pos">#</th>
+              <th>Team</th>
+              <th class="num" title="Played">P</th>
+              <th class="num" title="Wins">W</th>
+              <th class="num" title="Draws">D</th>
+              <th class="num" title="Losses">L</th>
+              <th class="num" title="Goals For">GF</th>
+              <th class="num" title="Goals Against">GA</th>
+              <th class="num" title="Goal Difference">GD</th>
+              <th class="num" title="Points">Pts</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rows.map((r, i) => `
+              <tr class="${gsRowClass(i, anyPlayed)}">
+                <td class="pos">${i + 1}</td>
+                <td class="name">
+                  <span class="fi fi-${teamFlag[r.team] || 'xx'}" style="width:18px;height:13px;border-radius:1px;box-shadow:0 0 0 1px rgba(255,255,255,0.08)"></span>
+                  ${r.team}
+                </td>
+                <td class="num">${r.P}</td>
+                <td class="num">${r.W}</td>
+                <td class="num">${r.D}</td>
+                <td class="num">${r.L}</td>
+                <td class="num">${r.GF}</td>
+                <td class="num">${r.GA}</td>
+                <td class="num">${r.GD > 0 ? '+' + r.GD : r.GD}</td>
+                <td class="pts">${r.Pts}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+    `;
+  });
+
+  html += `</div>`;
+
+  // Cross-group 3rd-placed ranking (8 best advance)
+  if (thirdPlaced.length > 0) {
+    html += `
+      <div class="gs-third-place">
+        <h3>Best 3rd-Placed Teams</h3>
+        <div class="stp-note">After all group matches, the <strong>8 best 3rd-placed teams</strong> across all 12 groups advance to the Round of 32 along with the 24 group winners and runners-up. Ranking by Points → Goal Difference → Goals For.</div>
+        <table class="standing-table gs-table" style="font-size:12px">
+          <thead>
+            <tr>
+              <th class="pos">#</th>
+              <th>Group</th>
+              <th>Team</th>
+              <th class="num">P</th>
+              <th class="num">W</th>
+              <th class="num">D</th>
+              <th class="num">L</th>
+              <th class="num">GF</th>
+              <th class="num">GA</th>
+              <th class="num">GD</th>
+              <th class="num">Pts</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${thirdPlaced.map((r, i) => `
+              <tr class="${i < 8 ? 'gs-q2' : 'gs-out'}">
+                <td class="pos">${i + 1}</td>
+                <td style="font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--gold)">${r.group}</td>
+                <td class="name">
+                  <span class="fi fi-${teamFlag[r.team] || 'xx'}" style="width:18px;height:13px;border-radius:1px;box-shadow:0 0 0 1px rgba(255,255,255,0.08)"></span>
+                  ${r.team}
+                </td>
+                <td class="num">${r.P}</td>
+                <td class="num">${r.W}</td>
+                <td class="num">${r.D}</td>
+                <td class="num">${r.L}</td>
+                <td class="num">${r.GF}</td>
+                <td class="num">${r.GA}</td>
+                <td class="num">${r.GD > 0 ? '+' + r.GD : r.GD}</td>
+                <td class="pts">${r.Pts}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+    `;
+  }
+
+  root.innerHTML = html;
+}
+
 function renderStandings() {
   const root = document.getElementById('standings-view');
   const confs = Object.keys(standings);
@@ -4556,6 +4961,7 @@ document.getElementById('viewToggle').addEventListener('click', e => {
   document.getElementById('timeline-view').classList.toggle('active', v === 'timeline');
   document.getElementById('groups-view').classList.toggle('active', v === 'groups');
   document.getElementById('standings-view').classList.toggle('active', v === 'standings');
+  document.getElementById('gs-view').classList.toggle('active', v === 'gs');
   document.getElementById('squads-view').classList.toggle('active', v === 'squads');
   document.getElementById('records-view').classList.toggle('active', v === 'records');
   document.getElementById('ko-view').style.display = v === 'ko' ? 'block' : 'none';
@@ -4798,6 +5204,7 @@ renderTimeline();
 renderGroups();
 ['r32','r16','qf','sf','final'].forEach(renderKO);
 renderStandings();
+renderGroupStandings();
 renderSquads();
 renderRecords();
 
@@ -4817,6 +5224,45 @@ document.addEventListener('click', e => {
     setTimeout(() => e.target.classList.remove('active'), 3000);
   }
 });
+
+/* ============================================================
+   GOATCOUNTER VISITOR STATS (public counter endpoints)
+   Requires "Allow adding visitor counts on your website" enabled
+   in GoatCounter site settings (Settings → check that box).
+   ============================================================ */
+(function loadVisitorStats() {
+  const BASE = 'https://erulab-my.goatcounter.com';
+
+  const setStat = (id, value) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.textContent = value;
+    el.classList.remove('loading');
+  };
+
+  // Total site-wide views — use the special "TOTAL" path counter
+  fetch(`${BASE}/counter/TOTAL.json`)
+    .then(r => r.ok ? r.json() : Promise.reject(r.status))
+    .then(d => setStat('statTotal', d.count || '0'))
+    .catch(() => {
+      const el = document.getElementById('statTotal');
+      if (el) { el.textContent = '—'; el.classList.remove('loading'); }
+    });
+
+  // This specific page's view count
+  const path = encodeURIComponent(location.pathname || '/');
+  fetch(`${BASE}/counter/${path}.json`)
+    .then(r => r.ok ? r.json() : Promise.reject(r.status))
+    .then(d => setStat('statToday', d.count || '0'))
+    .catch(() => {
+      const el = document.getElementById('statToday');
+      if (el) { el.textContent = '—'; el.classList.remove('loading'); }
+    });
+})();
 </script>
+
+<!-- GoatCounter tracking — cookie-free, privacy-first analytics -->
+<script data-goatcounter="https://erulab-my.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
