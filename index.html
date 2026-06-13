@@ -2196,7 +2196,7 @@
   </div>
   <div class="rev-badge">
     <span class="rev-tag">REV B</span>
-    <span class="rev-text">Updated 12 Jun 2026 · 12:45 PM MYT — Cleaner layout: each match now leads with Claude's analysis; odds are tucked behind a tap. Plus new <strong>Group Standings</strong> with live tables &amp; Day 1 results.</span>
+    <span class="rev-text">Updated 13 Jun 2026 · 6:47 PM MYT — Day 1 &amp; 2 results are in: <strong>Mexico 2-0, S.Korea 2-1, Canada 1-1, USA 4-1</strong>. Cleaner layout — each match leads with Claude's analysis; odds are tucked behind a tap. New <strong>Group Standings</strong> with live tables updating as results come in.</span>
   </div>
 </header>
 
@@ -4730,7 +4730,10 @@ function applyKnownResults() {
   // Day 1 actual results from WC2026 (June 11, 2026 local US time = June 12 MYT)
   const known = [
     { id: '2026_06_12_Mexico_South_Africa',     home: 2, away: 0 },
-    { id: '2026_06_12_South_Korea_Czechia',     home: 2, away: 1 }
+    { id: '2026_06_12_South_Korea_Czechia',     home: 2, away: 1 },
+    // Day 2 (June 12 US local = June 13 MYT)
+    { id: '2026_06_13_Canada_Bosnia___Herzegovina', home: 1, away: 1 },
+    { id: '2026_06_13_USA_Paraguay',            home: 4, away: 1 }
   ];
   known.forEach(r => {
     const key = 'wc26_score_' + r.id;
