@@ -1086,6 +1086,16 @@
 
   /* ---------------- ODDS ---------------- */
   .odds-block { margin-top: 18px; }
+  /* "You are here" pulse on the next unplayed match after auto-scroll */
+  @keyframes nextMatchPulse {
+    0%   { box-shadow: 0 0 0 0 rgba(212,175,55,0); }
+    25%  { box-shadow: 0 0 0 3px rgba(212,175,55,0.55), 0 0 22px rgba(212,175,55,0.3); }
+    100% { box-shadow: 0 0 0 0 rgba(212,175,55,0); }
+  }
+  .match.next-match-pulse {
+    animation: nextMatchPulse 2.2s ease-out;
+    border-radius: 14px;
+  }
   /* Per-match odds toggle button — opt-in disclosure */
   .odds-toggle {
     display: flex;
@@ -3872,7 +3882,7 @@ function matchHTML(m, groupLetter) {
     </div>
   `;
   return `
-    <div class="match">
+    <div class="match" data-match-id="${matchId}" data-played="${score ? '1' : '0'}" data-date="${dateStr}" data-time="${time}">
       <div class="match-date">
         <div class="md-hero">
           <div class="dow">${dow}</div>
@@ -5323,6 +5333,48 @@ renderStandings();
 renderGroupStandings();
 renderSquads();
 renderRecords();
+
+/* ============================================================
+   AUTO-SCROLL: on load, jump to the next unplayed match in the
+   timeline so users skip past completed games to live/upcoming.
+   ============================================================ */
+function scrollToNextMatch() {
+  // Only scroll if we're on the default timeline view
+  const timeline = document.getElementById('timeline-view');
+  if (!timeline || !timeline.classList.contains('active')) return;
+
+  // First-time visitors: keep them at the top so they read the
+  // disclaimer + welcome intro. From the second visit onward, auto-scroll
+  // to the next unplayed match for quicker access to live/upcoming games.
+  let visited = false;
+  try {
+    visited = localStorage.getItem('wc26_visited') === '1';
+    localStorage.setItem('wc26_visited', '1');
+  } catch (e) {}
+  if (!visited) return;
+
+  // Find the first match in the timeline (DOM order = chronological)
+  // that hasn't been played yet.
+  const matches = timeline.querySelectorAll('.match[data-played="0"]');
+  if (!matches.length) return; // all played — stay at top
+
+  const target = matches[0];
+  const dayBlock = target.closest('.day-block');
+  const scrollEl = dayBlock || target;
+
+  // Small delay so layout (fonts, flags) settles before measuring
+  setTimeout(() => {
+    const rect = scrollEl.getBoundingClientRect();
+    const top = window.pageYOffset + rect.top - 16;
+    window.scrollTo({ top, behavior: 'smooth' });
+    // Brief highlight pulse on the next match so users see "you are here"
+    target.classList.add('next-match-pulse');
+    setTimeout(() => target.classList.remove('next-match-pulse'), 2400);
+  }, 350);
+}
+// Run after first paint
+if (document.readyState === 'complete') scrollToNextMatch();
+else window.addEventListener('load', scrollToNextMatch);
 
 /* Global click handler: tooltips + score cells */
 document.addEventListener('click', e => {
