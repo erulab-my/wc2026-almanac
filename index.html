@@ -2196,7 +2196,7 @@
   </div>
   <div class="rev-badge">
     <span class="rev-tag">REV B</span>
-    <span class="rev-text">Updated 13 Jun 2026 · 6:47 PM MYT — Day 1 &amp; 2 results are in: <strong>Mexico 2-0, S.Korea 2-1, Canada 1-1, USA 4-1</strong>. Cleaner layout — each match leads with Claude's analysis; odds are tucked behind a tap. New <strong>Group Standings</strong> with live tables updating as results come in.</span>
+    <span class="rev-text">Updated 15 Jun 2026 · 9:50 AM MYT — Results through Matchday 1 are in. Highlights: <strong>Germany 7-1 Curaçao</strong>, <strong>Australia stun Türkiye 2-0</strong>, <strong>Brazil held 1-1 by Morocco</strong>, <strong>Netherlands 2-2 Japan</strong>. Tap any match for Claude's read &amp; simulated odds. <strong>Group Standings</strong> update live as scores come in.</span>
   </div>
 </header>
 
@@ -4733,7 +4733,17 @@ function applyKnownResults() {
     { id: '2026_06_12_South_Korea_Czechia',     home: 2, away: 1 },
     // Day 2 (June 12 US local = June 13 MYT)
     { id: '2026_06_13_Canada_Bosnia___Herzegovina', home: 1, away: 1 },
-    { id: '2026_06_13_USA_Paraguay',            home: 4, away: 1 }
+    { id: '2026_06_13_USA_Paraguay',            home: 4, away: 1 },
+    // Day 3 (June 13 US local = June 14 MYT)
+    { id: '2026_06_14_Qatar_Switzerland',       home: 1, away: 1 },
+    { id: '2026_06_14_Brazil_Morocco',          home: 1, away: 1 },
+    { id: '2026_06_14_Haiti_Scotland',          home: 0, away: 1 },
+    { id: '2026_06_14_Australia_T_rkiye',       home: 2, away: 0 },
+    // Day 4 (June 14 US local = June 15 MYT)
+    { id: '2026_06_15_Germany_Cura_ao',         home: 7, away: 1 },
+    { id: '2026_06_15_Netherlands_Japan',       home: 2, away: 2 },
+    { id: '2026_06_15_Ivory_Coast_Ecuador',     home: 1, away: 0 }
+    // Sweden v Tunisia still in progress at time of update — to be added
   ];
   known.forEach(r => {
     const key = 'wc26_score_' + r.id;
