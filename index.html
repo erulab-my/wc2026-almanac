@@ -2206,7 +2206,7 @@
   </div>
   <div class="rev-badge">
     <span class="rev-tag">REV B</span>
-    <span class="rev-text">Updated 15 Jun 2026 · 1:11 PM MYT — <strong>Matchday 1 complete</strong> for all 12 groups. Standout results: <strong>Germany 7-1 Curaçao</strong>, <strong>Sweden 5-1 Tunisia</strong>, <strong>Australia stun Türkiye 2-0</strong>, <strong>Brazil held 1-1 by Morocco</strong>. Tap any match for Claude's read &amp; simulated odds; <strong>Group Standings</strong> update live as scores come in.</span>
+    <span class="rev-text">Updated 16 Jun 2026 · 3:26 PM MYT — Groups G &amp; H open with <strong>a day of four draws</strong>: debutants <strong>Cape Verde hold Spain 0-0</strong>, <strong>Egypt 1-1 Belgium</strong>, <strong>Saudi Arabia 1-1 Uruguay</strong>, <strong>Iran 2-2 New Zealand</strong>. Tap any match for Claude's read &amp; simulated odds; <strong>Group Standings</strong> update live.</span>
   </div>
 </header>
 
@@ -4753,7 +4753,12 @@ function applyKnownResults() {
     { id: '2026_06_15_Germany_Cura_ao',         home: 7, away: 1 },
     { id: '2026_06_15_Netherlands_Japan',       home: 2, away: 2 },
     { id: '2026_06_15_Ivory_Coast_Ecuador',     home: 1, away: 0 },
-    { id: '2026_06_15_Sweden_Tunisia',          home: 5, away: 1 }
+    { id: '2026_06_15_Sweden_Tunisia',          home: 5, away: 1 },
+    // Day 5 (June 15 US local = June 16 MYT) — Groups G & H open, a day of draws
+    { id: '2026_06_16_Spain_Cape_Verde',        home: 0, away: 0 },
+    { id: '2026_06_16_Belgium_Egypt',           home: 1, away: 1 },
+    { id: '2026_06_16_Saudi_Arabia_Uruguay',    home: 1, away: 1 },
+    { id: '2026_06_16_Iran_New_Zealand',        home: 2, away: 2 }
   ];
   known.forEach(r => {
     const key = 'wc26_score_' + r.id;
