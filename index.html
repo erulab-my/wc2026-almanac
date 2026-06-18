@@ -2206,7 +2206,7 @@
   </div>
   <div class="rev-badge">
     <span class="rev-tag">REV B</span>
-    <span class="rev-text">Updated 16 Jun 2026 · 3:26 PM MYT — Groups G &amp; H open with <strong>a day of four draws</strong>: debutants <strong>Cape Verde hold Spain 0-0</strong>, <strong>Egypt 1-1 Belgium</strong>, <strong>Saudi Arabia 1-1 Uruguay</strong>, <strong>Iran 2-2 New Zealand</strong>. Tap any match for Claude's read &amp; simulated odds; <strong>Group Standings</strong> update live.</span>
+    <span class="rev-text">Updated 18 Jun 2026 · 5:30 PM MYT — <strong>All 48 teams have now played.</strong> The stars arrived: <strong>Messi scored to equal Klose's all-time WC record</strong> as Argentina beat Algeria 3-0, <strong>Mbappé's France saw off Senegal 3-1</strong>, <strong>Haaland's Norway hit Iraq for 4</strong>, and <strong>England edged Croatia 4-2</strong>. Tap any match for Claude's read; <strong>Group Standings</strong> update live.</span>
   </div>
 </header>
 
@@ -4758,7 +4758,17 @@ function applyKnownResults() {
     { id: '2026_06_16_Spain_Cape_Verde',        home: 0, away: 0 },
     { id: '2026_06_16_Belgium_Egypt',           home: 1, away: 1 },
     { id: '2026_06_16_Saudi_Arabia_Uruguay',    home: 1, away: 1 },
-    { id: '2026_06_16_Iran_New_Zealand',        home: 2, away: 2 }
+    { id: '2026_06_16_Iran_New_Zealand',        home: 2, away: 2 },
+    // Day 6 (June 16 US local = June 17 MYT) — Groups I & J open
+    { id: '2026_06_17_France_Senegal',          home: 3, away: 1 },
+    { id: '2026_06_17_Iraq_Norway',             home: 1, away: 4 },
+    { id: '2026_06_17_Argentina_Algeria',       home: 3, away: 0 },
+    { id: '2026_06_17_Austria_Jordan',          home: 3, away: 1 },
+    // Day 7 (June 17 US local = June 18 MYT) — Groups K & L open
+    { id: '2026_06_18_Portugal_DR_Congo',       home: 1, away: 1 },
+    { id: '2026_06_18_England_Croatia',         home: 4, away: 2 },
+    { id: '2026_06_18_Uzbekistan_Colombia',     home: 1, away: 3 },
+    { id: '2026_06_18_Ghana_Panama',            home: 1, away: 0 }
   ];
   known.forEach(r => {
     const key = 'wc26_score_' + r.id;
