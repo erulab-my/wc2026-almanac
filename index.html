@@ -2206,7 +2206,7 @@
   </div>
   <div class="rev-badge">
     <span class="rev-tag">REV B</span>
-    <span class="rev-text">Updated 18 Jun 2026 · 5:30 PM MYT — <strong>All 48 teams have now played.</strong> The stars arrived: <strong>Messi scored to equal Klose's all-time WC record</strong> as Argentina beat Algeria 3-0, <strong>Mbappé's France saw off Senegal 3-1</strong>, <strong>Haaland's Norway hit Iraq for 4</strong>, and <strong>England edged Croatia 4-2</strong>. Tap any match for Claude's read; <strong>Group Standings</strong> update live.</span>
+    <span class="rev-text">Updated 19 Jun 2026 · 1:27 PM MYT — <strong>Matchday 2 begins.</strong> <strong>Mexico beat South Korea 1-0</strong> to become the first team into the Round of 32. <strong>Canada's first-ever World Cup win was a 6-0 rout of Qatar</strong> (Jonathan David hat-trick), while <strong>Switzerland hit Bosnia for 4</strong>. Tap any match for Claude's read; <strong>Group Standings</strong> update live.</span>
   </div>
 </header>
 
@@ -4768,7 +4768,13 @@ function applyKnownResults() {
     { id: '2026_06_18_Portugal_DR_Congo',       home: 1, away: 1 },
     { id: '2026_06_18_England_Croatia',         home: 4, away: 2 },
     { id: '2026_06_18_Uzbekistan_Colombia',     home: 1, away: 3 },
-    { id: '2026_06_18_Ghana_Panama',            home: 1, away: 0 }
+    { id: '2026_06_18_Ghana_Panama',            home: 1, away: 0 },
+    // === MATCHDAY 2 ===
+    // Day 8 (June 18 US local = June 19 MYT) — Groups A & B round 2
+    { id: '2026_06_19_Czechia_South_Africa',    home: 1, away: 1 },
+    { id: '2026_06_19_Mexico_South_Korea',      home: 1, away: 0 },
+    { id: '2026_06_19_Switzerland_Bosnia___Herzegovina', home: 4, away: 1 },
+    { id: '2026_06_19_Canada_Qatar',            home: 6, away: 0 }
   ];
   known.forEach(r => {
     const key = 'wc26_score_' + r.id;
