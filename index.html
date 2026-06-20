@@ -2206,7 +2206,7 @@
   </div>
   <div class="rev-badge">
     <span class="rev-tag">REV B</span>
-    <span class="rev-text">Updated 19 Jun 2026 · 1:27 PM MYT — <strong>Matchday 2 begins.</strong> <strong>Mexico beat South Korea 1-0</strong> to become the first team into the Round of 32. <strong>Canada's first-ever World Cup win was a 6-0 rout of Qatar</strong> (Jonathan David hat-trick), while <strong>Switzerland hit Bosnia for 4</strong>. Tap any match for Claude's read; <strong>Group Standings</strong> update live.</span>
+    <span class="rev-text">Updated 20 Jun 2026 · 6:28 PM MYT — <strong>USA beat Australia 2-0 to reach the Round of 32</strong>, joining Mexico. <strong>Brazil thrashed Haiti 3-0</strong> and <strong>Morocco edged Scotland 1-0</strong> (a 69-second goal) to share top of Group C. <strong>Haiti &amp; Türkiye are out.</strong> Tap any match for Claude's read; <strong>Group Standings</strong> update live.</span>
   </div>
 </header>
 
@@ -4774,7 +4774,12 @@ function applyKnownResults() {
     { id: '2026_06_19_Czechia_South_Africa',    home: 1, away: 1 },
     { id: '2026_06_19_Mexico_South_Korea',      home: 1, away: 0 },
     { id: '2026_06_19_Switzerland_Bosnia___Herzegovina', home: 4, away: 1 },
-    { id: '2026_06_19_Canada_Qatar',            home: 6, away: 0 }
+    { id: '2026_06_19_Canada_Qatar',            home: 6, away: 0 },
+    // Day 9 (June 19 US local = June 20 MYT) — Groups C & D round 2
+    { id: '2026_06_20_Scotland_Morocco',        home: 0, away: 1 },
+    { id: '2026_06_20_Brazil_Haiti',            home: 3, away: 0 },
+    { id: '2026_06_20_USA_Australia',           home: 2, away: 0 },
+    { id: '2026_06_20_T_rkiye_Paraguay',        home: 0, away: 1 }
   ];
   known.forEach(r => {
     const key = 'wc26_score_' + r.id;
