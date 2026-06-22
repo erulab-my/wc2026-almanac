@@ -2206,7 +2206,7 @@
   </div>
   <div class="rev-badge">
     <span class="rev-tag">REV B</span>
-    <span class="rev-text">Updated 20 Jun 2026 · 6:28 PM MYT — <strong>USA beat Australia 2-0 to reach the Round of 32</strong>, joining Mexico. <strong>Brazil thrashed Haiti 3-0</strong> and <strong>Morocco edged Scotland 1-0</strong> (a 69-second goal) to share top of Group C. <strong>Haiti &amp; Türkiye are out.</strong> Tap any match for Claude's read; <strong>Group Standings</strong> update live.</span>
+    <span class="rev-text">Updated 22 Jun 2026 · 9:48 PM MYT — <strong>Germany qualify</strong> via a 94th-min Undav winner over Ivory Coast; <strong>Netherlands hammered Sweden 5-1</strong>, <strong>Japan beat Tunisia 4-0</strong> (Tunisia out), and <strong>Spain woke up with a 4-0 rout of Saudi Arabia</strong> (Yamal's first WC goal). Debutants <strong>Curaçao earned a historic first point</strong> holding Ecuador 0-0. Tap any match for Claude's read; <strong>Group Standings</strong> update live.</span>
   </div>
 </header>
 
@@ -4779,7 +4779,16 @@ function applyKnownResults() {
     { id: '2026_06_20_Scotland_Morocco',        home: 0, away: 1 },
     { id: '2026_06_20_Brazil_Haiti',            home: 3, away: 0 },
     { id: '2026_06_20_USA_Australia',           home: 2, away: 0 },
-    { id: '2026_06_20_T_rkiye_Paraguay',        home: 0, away: 1 }
+    { id: '2026_06_20_T_rkiye_Paraguay',        home: 0, away: 1 },
+    // Day 10 (June 20 US local = June 21 MYT) — Groups E & F round 2
+    { id: '2026_06_21_Germany_Ivory_Coast',     home: 2, away: 1 },
+    { id: '2026_06_21_Ecuador_Cura_ao',         home: 0, away: 0 },
+    { id: '2026_06_21_Netherlands_Sweden',      home: 5, away: 1 },
+    { id: '2026_06_21_Tunisia_Japan',           home: 0, away: 4 },
+    // Day 11 (June 21 US local = June 22 MYT) — Groups G & H round 2 (early games)
+    { id: '2026_06_22_Belgium_Iran',            home: 0, away: 0 },
+    { id: '2026_06_22_New_Zealand_Egypt',       home: 1, away: 3 },
+    { id: '2026_06_22_Spain_Saudi_Arabia',      home: 4, away: 0 }
   ];
   known.forEach(r => {
     const key = 'wc26_score_' + r.id;
