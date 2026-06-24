@@ -2304,7 +2304,7 @@
   </div>
   <div class="rev-badge">
     <span class="rev-tag">REV B</span>
-    <span class="rev-text">Updated 23 Jun 2026 · 2:21 PM MYT — <strong>Algeria come from behind to beat Jordan 2-1</strong>, staying alive and eliminating Jordan. Earlier: <strong>Messi became the World Cup's all-time top scorer</strong> (18 goals) as Argentina, France &amp; Norway all reached the knockouts. The <strong>Group Standings</strong> page now has a full <strong>chronological results log</strong> — every match, row by row, by date.</span>
+    <span class="rev-text">Updated 24 Jun 2026 · 12:02 PM MYT — <strong>Matchday 2 complete.</strong> <strong>Ronaldo bagged a brace in Portugal's 5-0 win over Uzbekistan</strong>, becoming the first player to score at six World Cups. <strong>Colombia qualified</strong> (1-0 over DR Congo); <strong>England held 0-0 by Ghana</strong>, and Croatia edged Panama 1-0. The <strong>Group Standings</strong> page has a full chronological results log — every match, by date.</span>
   </div>
 </header>
 
@@ -4892,7 +4892,12 @@ function applyKnownResults() {
     { id: '2026_06_23_Argentina_Austria',       home: 2, away: 0 },
     { id: '2026_06_23_France_Iraq',             home: 3, away: 0 },
     { id: '2026_06_23_Norway_Senegal',          home: 3, away: 2 },
-    { id: '2026_06_23_Jordan_Algeria',          home: 1, away: 2 }
+    { id: '2026_06_23_Jordan_Algeria',          home: 1, away: 2 },
+    // Day 13 (June 23 US local = June 24 MYT) — Groups K & L round 2
+    { id: '2026_06_24_Portugal_Uzbekistan',     home: 5, away: 0 },
+    { id: '2026_06_24_Colombia_DR_Congo',       home: 1, away: 0 },
+    { id: '2026_06_24_England_Ghana',           home: 0, away: 0 },
+    { id: '2026_06_24_Panama_Croatia',          home: 0, away: 1 }
   ];
   known.forEach(r => {
     const key = 'wc26_score_' + r.id;
