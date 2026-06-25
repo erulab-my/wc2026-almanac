@@ -2304,7 +2304,7 @@
   </div>
   <div class="rev-badge">
     <span class="rev-tag">REV B</span>
-    <span class="rev-text">Updated 24 Jun 2026 · 12:02 PM MYT — <strong>Matchday 2 complete.</strong> <strong>Ronaldo bagged a brace in Portugal's 5-0 win over Uzbekistan</strong>, becoming the first player to score at six World Cups. <strong>Colombia qualified</strong> (1-0 over DR Congo); <strong>England held 0-0 by Ghana</strong>, and Croatia edged Panama 1-0. The <strong>Group Standings</strong> page has a full chronological results log — every match, by date.</span>
+    <span class="rev-text">Updated 25 Jun 2026 · 4:53 PM MYT — <strong>Matchday 3 begins</strong> and Groups A–C are settled. <strong>South Africa qualify for the knockouts for the first time ever</strong>, beating South Korea 1-0; <strong>Mexico finished a perfect 9 points</strong> (3-0 over Czechia); <strong>Brazil pipped Morocco to top Group C</strong>; Switzerland won Group B. The <strong>Group Standings</strong> page has a full chronological results log.</span>
   </div>
 </header>
 
@@ -4897,7 +4897,15 @@ function applyKnownResults() {
     { id: '2026_06_24_Portugal_Uzbekistan',     home: 5, away: 0 },
     { id: '2026_06_24_Colombia_DR_Congo',       home: 1, away: 0 },
     { id: '2026_06_24_England_Ghana',           home: 0, away: 0 },
-    { id: '2026_06_24_Panama_Croatia',          home: 0, away: 1 }
+    { id: '2026_06_24_Panama_Croatia',          home: 0, away: 1 },
+    // === MATCHDAY 3 (final group round) ===
+    // Day 14 (June 24 US local = June 25 MYT) — Groups A, B, C finals
+    { id: '2026_06_25_Czechia_Mexico',          home: 0, away: 3 },
+    { id: '2026_06_25_South_Africa_South_Korea', home: 1, away: 0 },
+    { id: '2026_06_25_Switzerland_Canada',      home: 2, away: 1 },
+    { id: '2026_06_25_Bosnia___Herzegovina_Qatar', home: 3, away: 1 },
+    { id: '2026_06_25_Scotland_Brazil',         home: 0, away: 3 },
+    { id: '2026_06_25_Morocco_Haiti',           home: 4, away: 2 }
   ];
   known.forEach(r => {
     const key = 'wc26_score_' + r.id;
