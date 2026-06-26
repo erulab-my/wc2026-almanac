@@ -2304,7 +2304,7 @@
   </div>
   <div class="rev-badge">
     <span class="rev-tag">REV B</span>
-    <span class="rev-text">Updated 25 Jun 2026 · 4:53 PM MYT — <strong>Matchday 3 begins</strong> and Groups A–C are settled. <strong>South Africa qualify for the knockouts for the first time ever</strong>, beating South Korea 1-0; <strong>Mexico finished a perfect 9 points</strong> (3-0 over Czechia); <strong>Brazil pipped Morocco to top Group C</strong>; Switzerland won Group B. The <strong>Group Standings</strong> page has a full chronological results log.</span>
+    <span class="rev-text">Updated 26 Jun 2026 · 4:46 PM MYT — <strong>Ecuador stun Germany 2-1</strong> in the day's big upset (Germany still top Group E). <strong>USA reach the knockouts despite a 3-2 loss to Türkiye</strong> (Ayhan's 90+9' winner); <strong>Netherlands win Group F</strong> with Japan &amp; Sweden also through. Nine groups now settled — just G, H, I, J, K, L finals to go. The <strong>Group Standings</strong> page has a full results log.</span>
   </div>
 </header>
 
@@ -4905,7 +4905,14 @@ function applyKnownResults() {
     { id: '2026_06_25_Switzerland_Canada',      home: 2, away: 1 },
     { id: '2026_06_25_Bosnia___Herzegovina_Qatar', home: 3, away: 1 },
     { id: '2026_06_25_Scotland_Brazil',         home: 0, away: 3 },
-    { id: '2026_06_25_Morocco_Haiti',           home: 4, away: 2 }
+    { id: '2026_06_25_Morocco_Haiti',           home: 4, away: 2 },
+    // Day 15 (June 25 US local = June 26 MYT) — Groups D, E, F finals
+    { id: '2026_06_26_T_rkiye_USA',             home: 3, away: 2 },
+    { id: '2026_06_26_Paraguay_Australia',      home: 0, away: 0 },
+    { id: '2026_06_26_Ecuador_Germany',         home: 2, away: 1 },
+    { id: '2026_06_26_Cura_ao_Ivory_Coast',     home: 0, away: 2 },
+    { id: '2026_06_26_Japan_Sweden',            home: 1, away: 1 },
+    { id: '2026_06_26_Tunisia_Netherlands',     home: 1, away: 3 }
   ];
   known.forEach(r => {
     const key = 'wc26_score_' + r.id;
