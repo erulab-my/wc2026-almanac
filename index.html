@@ -673,7 +673,30 @@
   .ko-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
   .ko-match { background: var(--bg-card-2); padding: 14px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.03); }
   .ko-match-num { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--gold); letter-spacing: 1px; margin-bottom: 6px; }
-  .ko-teams { font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+  .ko-teams { font-size: 13px; font-weight: 600; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .ko-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(212,175,55,0.10);
+    border: 1px solid rgba(212,175,55,0.3);
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .ko-chip .fi {
+    width: 18px;
+    height: 13px;
+    border-radius: 2px;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.1);
+  }
+  .ko-placeholder {
+    color: var(--text-dim);
+    font-weight: 500;
+    font-style: italic;
+    font-size: 12px;
+  }
   .ko-meta { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-dim); line-height: 1.5; }
   .ko-meta .time { color: var(--gold); font-weight: 700; }
 
@@ -2304,7 +2327,7 @@
   </div>
   <div class="rev-badge">
     <span class="rev-tag">REV B</span>
-    <span class="rev-text">Updated 26 Jun 2026 · 4:46 PM MYT — <strong>Ecuador stun Germany 2-1</strong> in the day's big upset (Germany still top Group E). <strong>USA reach the knockouts despite a 3-2 loss to Türkiye</strong> (Ayhan's 90+9' winner); <strong>Netherlands win Group F</strong> with Japan &amp; Sweden also through. Nine groups now settled — just G, H, I, J, K, L finals to go. The <strong>Group Standings</strong> page has a full results log.</span>
+    <span class="rev-text">Updated 27 Jun 2026 · 5:03 PM MYT — <strong>Debutants Cape Verde reach the knockouts!</strong> <strong>France top Group I with a perfect 9</strong> (4-1 over Norway), <strong>Spain &amp; Belgium also through</strong>. The <strong>Knockouts</strong> page now <strong>auto-fills the Round of 32 bracket</strong> with real teams &amp; flags as each group finishes — only Groups J, K, L left to decide.</span>
   </div>
 </header>
 
@@ -2870,6 +2893,7 @@ function editScore(matchId) {
   renderTimeline();
   renderGroups();
   renderGroupStandings();
+  renderKO('r32');
 }
 
 function clearAllScores() {
@@ -2878,6 +2902,7 @@ function clearAllScores() {
   renderTimeline();
   renderGroups();
   renderGroupStandings();
+  renderKO('r32');
 }
 
 function exportScores() {
@@ -2908,6 +2933,7 @@ function importScores() {
         renderTimeline();
         renderGroups();
         renderGroupStandings();
+  renderKO('r32');
         showToast(`Imported ${Object.keys(data).length} scores`);
       } catch (err) { alert('Invalid file format'); }
     };
@@ -4912,7 +4938,14 @@ function applyKnownResults() {
     { id: '2026_06_26_Ecuador_Germany',         home: 2, away: 1 },
     { id: '2026_06_26_Cura_ao_Ivory_Coast',     home: 0, away: 2 },
     { id: '2026_06_26_Japan_Sweden',            home: 1, away: 1 },
-    { id: '2026_06_26_Tunisia_Netherlands',     home: 1, away: 3 }
+    { id: '2026_06_26_Tunisia_Netherlands',     home: 1, away: 3 },
+    // Day 16 (June 26 US local = June 27 MYT) — Groups G, H, I finals
+    { id: '2026_06_27_Egypt_Iran',              home: 1, away: 1 },
+    { id: '2026_06_27_New_Zealand_Belgium',     home: 1, away: 5 },
+    { id: '2026_06_27_Cape_Verde_Saudi_Arabia', home: 0, away: 0 },
+    { id: '2026_06_27_Uruguay_Spain',           home: 0, away: 1 },
+    { id: '2026_06_27_Norway_France',           home: 1, away: 4 },
+    { id: '2026_06_27_Senegal_Iraq',            home: 5, away: 0 }
   ];
   known.forEach(r => {
     const key = 'wc26_score_' + r.id;
@@ -5278,16 +5311,72 @@ function renderSquads() {
   root.innerHTML = html;
 }
 
+/* ============================================================
+   Resolve R32 placeholder labels (Winner A, Runner-up B, 3rd X/Y/Z)
+   into actual qualified teams once group results are known.
+   ============================================================ */
+function getQualifiers() {
+  const stand = computeGroupStandings();
+  const winners = {}, runners = {}, thirds = {};
+  const thirdList = [];
+  Object.keys(groups).forEach(g => {
+    const rows = stand[g];
+    const complete = rows.every(r => r.P === 3); // all 3 matches played
+    if (complete) {
+      winners[g] = rows[0].team;
+      runners[g] = rows[1].team;
+      thirds[g] = rows[2].team;
+      thirdList.push({ group: g, ...rows[2] });
+    }
+  });
+  // Rank 3rd-placed teams; top 8 qualify
+  thirdList.sort((a, b) => b.Pts - a.Pts || b.GD - a.GD || b.GF - a.GF || a.team.localeCompare(b.team));
+  const qualifiedThirds = thirdList.slice(0, 8); // best 8
+  return { winners, runners, thirds, qualifiedThirds, thirdList };
+}
+
+function teamChip(name) {
+  if (!name) return '';
+  const code = teamFlag[name] || 'xx';
+  return `<span class="ko-chip"><span class="fi fi-${code}"></span>${name}</span>`;
+}
+
+function resolveKOLabel(label, q) {
+  // "Winner A" / "Runner-up B"
+  let m = label.match(/^Winner ([A-L])$/);
+  if (m && q.winners[m[1]]) return teamChip(q.winners[m[1]]);
+  m = label.match(/^Runner-up ([A-L])$/);
+  if (m && q.runners[m[1]]) return teamChip(q.runners[m[1]]);
+  // "3rd A/B/C/D/F" — a third-place slot from one of several groups.
+  // Resolve only if ALL listed groups are decided AND exactly one of them
+  // is among the qualified 8 thirds and not yet assigned elsewhere.
+  m = label.match(/^3rd ([A-L/]+)$/);
+  if (m) {
+    const groupSet = m[1].split('/');
+    const allDecided = groupSet.every(g => q.thirds[g] !== undefined);
+    if (allDecided) {
+      // Candidates from these groups that qualified (top 8)
+      const candidates = q.qualifiedThirds.filter(t => groupSet.includes(t.group));
+      if (candidates.length === 1) return teamChip(candidates[0].team);
+    }
+  }
+  // Fallback: keep the placeholder text
+  return `<span class="ko-placeholder">${label}</span>`;
+}
+
 function renderKO(key) {
   const ko = knockouts[key];
   const root = document.getElementById(`${key}-view`);
+  const q = (key === 'r32') ? getQualifiers() : null;
   let html = `<div class="ko-card"><div class="ko-title">${ko.title}</div><div class="ko-sub">${ko.sub}</div><div class="ko-grid">`;
   ko.matches.forEach(m => {
     const [num, date, time, home, away, venue] = m;
+    const homeHTML = q ? resolveKOLabel(home, q) : home;
+    const awayHTML = q ? resolveKOLabel(away, q) : away;
     html += `
       <div class="ko-match">
         <div class="ko-match-num">MATCH ${num}</div>
-        <div class="ko-teams">${home} <span style="color:var(--text-dim);font-weight:400">vs</span> ${away}</div>
+        <div class="ko-teams">${homeHTML} <span style="color:var(--text-dim);font-weight:400">vs</span> ${awayHTML}</div>
         <div class="ko-meta">${date} · <span class="time">${time} MYT</span><br>${venue}</div>
       </div>
     `;
