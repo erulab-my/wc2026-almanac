@@ -697,6 +697,53 @@
     font-style: italic;
     font-size: 12px;
   }
+  /* Claude's R32 prediction block */
+  .ko-pred {
+    margin-top: 12px;
+    padding: 12px;
+    background: linear-gradient(135deg, rgba(168,85,247,0.06), rgba(96,165,250,0.04));
+    border: 1px solid rgba(168,85,247,0.22);
+    border-radius: 10px;
+  }
+  .ko-pred-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+  .ko-pred-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #c084fc;
+    letter-spacing: 0.5px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .ko-pred-badge {
+    font-size: 9.5px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 100px;
+    letter-spacing: 0.5px;
+    font-family: 'JetBrains Mono', monospace;
+    white-space: nowrap;
+  }
+  .ko-pred-pick {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .ko-pred-note {
+    font-size: 11.5px;
+    line-height: 1.55;
+    color: var(--text-soft);
+  }
   .ko-meta { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-dim); line-height: 1.5; }
   .ko-meta .time { color: var(--gold); font-weight: 700; }
 
@@ -2318,7 +2365,7 @@
 <header>
   <div class="eyebrow">USA · CANADA · MEXICO · MYT · SGT</div>
   <h1>FIFA World Cup<br><span class="accent">2026</span></h1>
-  <p class="sub">All 104 matches in <strong>Malaysia &amp; Singapore local time</strong> (UTC+8). Each match shows <strong>Claude's statistical match read</strong>. Tap any match to reveal simulated odds &amp; how they work.</p>
+  <p class="sub">The <strong>Round of 32</strong> is set. All times in <strong>Malaysia &amp; Singapore</strong> (UTC+8), with <strong>🤖 Claude's prediction</strong> for every knockout tie based on group-stage form. Group results live under the Group Matches &amp; Standings tabs.</p>
   <div class="pill-row">
     <div class="pill"><span class="dot">●</span>JUN 11 → JUL 19</div>
     <div class="pill"><span class="dot">●</span>48 TEAMS</div>
@@ -2327,7 +2374,7 @@
   </div>
   <div class="rev-badge">
     <span class="rev-tag">REV B</span>
-    <span class="rev-text">Updated 27 Jun 2026 · 5:03 PM MYT — <strong>Debutants Cape Verde reach the knockouts!</strong> <strong>France top Group I with a perfect 9</strong> (4-1 over Norway), <strong>Spain &amp; Belgium also through</strong>. The <strong>Knockouts</strong> page now <strong>auto-fills the Round of 32 bracket</strong> with real teams &amp; flags as each group finishes — only Groups J, K, L left to decide.</span>
+    <span class="rev-text">Updated 28 Jun 2026 · 3:53 PM MYT — <strong>The group stage is complete!</strong> All 32 knockout teams are confirmed. The site now opens on the <strong>Round of 32 bracket</strong> with <strong>🤖 Claude's prediction for every tie</strong>, based on group-stage form. Debutants Cape Verde face Messi's Argentina; France look the team to beat. Group results moved to the <strong>Group Matches</strong> &amp; <strong>Group Standings</strong> tabs.</span>
   </div>
 </header>
 
@@ -2474,21 +2521,21 @@
 
 <div class="controls">
   <div class="view-toggle" id="viewToggle">
-    <button class="view-btn active" data-view="timeline">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="4" cy="6" r="1" fill="currentColor"/><circle cx="4" cy="12" r="1" fill="currentColor"/><circle cx="4" cy="18" r="1" fill="currentColor"/></svg>
-      Matches by Date
-    </button>
-    <button class="view-btn" data-view="groups">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-      Matches by Group
-    </button>
-    <button class="view-btn" data-view="ko">
+    <button class="view-btn active" data-view="ko">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
       Knockouts
     </button>
     <button class="view-btn" data-view="gs">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M4 10h16M9 4v16"/></svg>
       Group Standings
+    </button>
+    <button class="view-btn" data-view="timeline">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="4" cy="6" r="1" fill="currentColor"/><circle cx="4" cy="12" r="1" fill="currentColor"/><circle cx="4" cy="18" r="1" fill="currentColor"/></svg>
+      Group Matches
+    </button>
+    <button class="view-btn" data-view="groups">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      By Group
     </button>
     <button class="view-btn" data-view="standings">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17V8l5 4 5-8 5 7 3-5v11z"/></svg>
@@ -2503,7 +2550,7 @@
       Records
     </button>
   </div>
-  <div class="mode-toggle" id="modeToggle" title="Show or hide Claude's match analysis">
+  <div class="mode-toggle" id="modeToggle" title="Show or hide Claude's match analysis" style="display:none">
     <span class="mode-label" style="padding:0 8px 0 12px;align-self:center">CLAUDE'S READ:</span>
     <label class="switch-label" style="padding-right:12px">
       <input type="checkbox" id="aiToggle" checked>
@@ -2514,7 +2561,7 @@
 </div>
 
 <div class="controls" style="margin-top:8px">
-  <div class="score-controls">
+  <div class="score-controls" style="display:none">
     <span style="font-size:11px;color:var(--text-dim);font-family:'JetBrains Mono',monospace;letter-spacing:1px;padding:8px 0">RESULTS:</span>
     <button onclick="exportScores()">⬇ Save scores (JSON)</button>
     <button onclick="importScores()">⬆ Load scores</button>
@@ -2530,7 +2577,7 @@
   </div>
 </div>
 
-<div class="tabs" id="koTabs" style="display:none">
+<div class="tabs" id="koTabs" style="display:flex">
   <button class="tab active" data-ko="r32">Round of 32</button>
   <button class="tab" data-ko="r16">Round of 16</button>
   <button class="tab" data-ko="qf">Quarter-Finals</button>
@@ -2539,9 +2586,9 @@
 </div>
 
 <main>
-  <div id="timeline-view" class="timeline active"></div>
+  <div id="timeline-view" class="timeline"></div>
   <div id="groups-view" class="groups"></div>
-  <div id="ko-view" style="display:none">
+  <div id="ko-view" style="display:block">
     <div id="r32-view" class="ko-section active"></div>
     <div id="r16-view" class="ko-section"></div>
     <div id="qf-view" class="ko-section"></div>
@@ -2796,23 +2843,23 @@ const groups = {
 };
 
 const knockouts = {
-  r32: { title:'Round of 32', sub:'JUN 29 → JUL 04 · 16 MATCHES', matches:[
-    ['73','Mon 29 Jun','03:00','Runner-up A','Runner-up B','SoFi Stadium, Los Angeles'],
-    ['76','Tue 30 Jun','01:00','Winner C','Runner-up F','NRG Stadium, Houston'],
-    ['74','Tue 30 Jun','04:30','Winner E','3rd A/B/C/D/F','Gillette Stadium, Boston'],
-    ['75','Tue 30 Jun','09:00','Winner F','Runner-up C','Estadio BBVA, Monterrey'],
-    ['78','Wed 01 Jul','01:00','Runner-up E','Runner-up I','AT&T Stadium, Dallas'],
-    ['77','Wed 01 Jul','05:00','Winner I','3rd C/D/F/G/H','MetLife Stadium, New York/New Jersey'],
-    ['79','Wed 01 Jul','09:00','Winner A','3rd C/E/F/H/I','Estadio Azteca, Mexico City'],
-    ['80','Thu 02 Jul','00:00','Winner L','3rd E/H/I/J/K','Mercedes-Benz Stadium, Atlanta'],
-    ['82','Thu 02 Jul','04:00','Winner G','3rd A/E/H/I/J','Lumen Field, Seattle'],
-    ['81','Thu 02 Jul','08:00','Winner D','3rd B/E/F/I/J','Levi\'s Stadium, San Francisco Bay'],
-    ['84','Fri 03 Jul','03:00','Winner H','Runner-up J','SoFi Stadium, Los Angeles'],
-    ['83','Fri 03 Jul','07:00','Runner-up K','Runner-up L','BMO Field, Toronto'],
-    ['85','Fri 03 Jul','11:00','Winner B','3rd E/F/G/I/J','BC Place, Vancouver'],
-    ['88','Sat 04 Jul','02:00','Runner-up D','Runner-up G','AT&T Stadium, Dallas'],
-    ['86','Sat 04 Jul','06:00','Winner J','Runner-up H','Hard Rock Stadium, Miami'],
-    ['87','Sat 04 Jul','09:30','Winner K','3rd D/E/I/J/L','Arrowhead Stadium, Kansas City'],
+  r32: { title:'Round of 32', sub:'JUN 29 → JUL 04 · 16 MATCHES · ALL TEAMS CONFIRMED', matches:[
+    ['73','Mon 29 Jun','03:00','South Africa','Canada','SoFi Stadium, Los Angeles'],
+    ['76','Tue 30 Jun','01:00','Brazil','Japan','NRG Stadium, Houston'],
+    ['74','Tue 30 Jun','04:30','Germany','Paraguay','Gillette Stadium, Boston'],
+    ['75','Tue 30 Jun','09:00','Netherlands','Morocco','Estadio BBVA, Monterrey'],
+    ['78','Wed 01 Jul','01:00','Ivory Coast','Norway','AT&T Stadium, Dallas'],
+    ['77','Wed 01 Jul','05:00','France','Sweden','MetLife Stadium, New York/New Jersey'],
+    ['79','Wed 01 Jul','09:00','Mexico','Ecuador','Estadio Azteca, Mexico City'],
+    ['80','Thu 02 Jul','00:00','England','DR Congo','Mercedes-Benz Stadium, Atlanta'],
+    ['82','Thu 02 Jul','04:00','Belgium','Senegal','Lumen Field, Seattle'],
+    ['81','Thu 02 Jul','08:00','USA','Bosnia & Herzegovina','Levi\'s Stadium, San Francisco Bay'],
+    ['84','Fri 03 Jul','03:00','Spain','Austria','SoFi Stadium, Los Angeles'],
+    ['83','Fri 03 Jul','07:00','Portugal','Croatia','BMO Field, Toronto'],
+    ['85','Fri 03 Jul','11:00','Switzerland','Algeria','BC Place, Vancouver'],
+    ['88','Sat 04 Jul','02:00','Australia','Egypt','AT&T Stadium, Dallas'],
+    ['86','Sat 04 Jul','06:00','Argentina','Cape Verde','Hard Rock Stadium, Miami'],
+    ['87','Sat 04 Jul','09:30','Colombia','Ghana','Arrowhead Stadium, Kansas City'],
   ]},
   r16: { title:'Round of 16', sub:'JUL 05 → JUL 08 · 8 MATCHES', matches:[
     ['90','Sun 05 Jul','01:00','Winner Match 73','Winner Match 75','NRG Stadium, Houston'],
@@ -4945,7 +4992,14 @@ function applyKnownResults() {
     { id: '2026_06_27_Cape_Verde_Saudi_Arabia', home: 0, away: 0 },
     { id: '2026_06_27_Uruguay_Spain',           home: 0, away: 1 },
     { id: '2026_06_27_Norway_France',           home: 1, away: 4 },
-    { id: '2026_06_27_Senegal_Iraq',            home: 5, away: 0 }
+    { id: '2026_06_27_Senegal_Iraq',            home: 5, away: 0 },
+    // Day 17 (June 27 US local = June 28 MYT) — Groups J, K, L finals — GROUP STAGE COMPLETE
+    { id: '2026_06_28_Algeria_Austria',         home: 3, away: 3 },
+    { id: '2026_06_28_Jordan_Argentina',        home: 1, away: 3 },
+    { id: '2026_06_28_Colombia_Portugal',       home: 0, away: 0 },
+    { id: '2026_06_28_DR_Congo_Uzbekistan',     home: 3, away: 1 },
+    { id: '2026_06_28_Panama_England',          home: 0, away: 2 },
+    { id: '2026_06_28_Croatia_Ghana',           home: 2, away: 1 }
   ];
   known.forEach(r => {
     const key = 'wc26_score_' + r.id;
@@ -5342,26 +5396,58 @@ function teamChip(name) {
 }
 
 function resolveKOLabel(label, q) {
+  // If the label is already a real team name (R32 now hardcoded), show a chip
+  if (teamFlag[label]) return teamChip(label);
   // "Winner A" / "Runner-up B"
   let m = label.match(/^Winner ([A-L])$/);
   if (m && q.winners[m[1]]) return teamChip(q.winners[m[1]]);
   m = label.match(/^Runner-up ([A-L])$/);
   if (m && q.runners[m[1]]) return teamChip(q.runners[m[1]]);
   // "3rd A/B/C/D/F" — a third-place slot from one of several groups.
-  // Resolve only if ALL listed groups are decided AND exactly one of them
-  // is among the qualified 8 thirds and not yet assigned elsewhere.
   m = label.match(/^3rd ([A-L/]+)$/);
   if (m) {
     const groupSet = m[1].split('/');
     const allDecided = groupSet.every(g => q.thirds[g] !== undefined);
     if (allDecided) {
-      // Candidates from these groups that qualified (top 8)
       const candidates = q.qualifiedThirds.filter(t => groupSet.includes(t.group));
       if (candidates.length === 1) return teamChip(candidates[0].team);
     }
   }
   // Fallback: keep the placeholder text
   return `<span class="ko-placeholder">${label}</span>`;
+}
+
+/* ============================================================
+   CLAUDE'S R32 PREDICTIONS — based on group-stage (round 1) form.
+   Keyed by match number. tier: high | likely | lean | toss
+   ============================================================ */
+const r32Predictions = {
+  '73': { pick:'Canada', tier:'lean',   note:'Canada\'s +6 GD (6-0 Qatar) edges a historic but lower-powered South Africa. Tight, could go either way.' },
+  '76': { pick:'Brazil', tier:'likely', note:'Brazil\'s class tells, but Japan\'s 2-2 with the Dutch and 4-0 of Tunisia means the Seleção can\'t coast.' },
+  '74': { pick:'Germany',tier:'likely', note:'Germany top scorers in the group (9 GF); the Ecuador loss was dead-rubber rotation. Paraguay scraped through on 4 pts.' },
+  '75': { pick:'Netherlands',tier:'lean', note:'Two elite attacks. Netherlands\' +6 GD slightly ahead, but Morocco\'s organisation makes this a coin-flip.' },
+  '78': { pick:'Norway', tier:'lean',   note:'Haaland vs Diomande. Norway\'s firepower (10 GF incl. 4-1 Iraq) edges a solid Ivory Coast.' },
+  '77': { pick:'France', tier:'high',   note:'France were the group stage\'s best team — perfect 9 pts, +8 GD, Dembélé hat-trick. Sweden snuck in 3rd.' },
+  '79': { pick:'Mexico', tier:'likely', note:'Hosts unbeaten on a perfect 9 pts at the Azteca. Ecuador are dangerous (beat Germany) but Mexico\'s form + altitude favour El Tri.' },
+  '80': { pick:'England',tier:'likely', note:'England top Group L but looked flat (0-0 Ghana). DR Congo arrive on a high after a 3-1 comeback, so not a gimme.' },
+  '82': { pick:'Belgium',tier:'lean',   note:'Belgium stuttered (2 draws) then thrashed NZ 5-1. Senegal\'s 5-0 of Iraq shows bite — closer than seeds suggest.' },
+  '81': { pick:'USA',    tier:'lean',   note:'Hosts won Group D but rested in a 3-2 loss to Türkiye. Bosnia are a tough 3rd-place side. Home crowd tips it.' },
+  '84': { pick:'Spain',  tier:'likely', note:'Spain found form (4-0 Saudi, 1-0 Uruguay) after the Cape Verde scare. Austria scraped 2nd. Spain\'s quality should show.' },
+  '83': { pick:'Portugal',tier:'lean',  note:'A 2016 Euro final rematch — Ronaldo vs Modrić. Portugal stronger on paper but flat (0-0 Colombia); Croatia always rise in knockouts.' },
+  '85': { pick:'Switzerland',tier:'lean',note:'Switzerland won Group B; Algeria arrive on a wild 3-3 with Austria. Swiss solidity vs Algerian flair — slight Swiss lean.' },
+  '88': { pick:'Australia',tier:'toss', note:'Genuinely even. Australia shocked Türkiye and held Paraguay; Egypt have Salah. Pick \'em.' },
+  '86': { pick:'Argentina',tier:'high', note:'Messi\'s Argentina perfect on 9 pts, the GOAT now WC all-time top scorer. Cape Verde\'s fairytale likely ends here.' },
+  '87': { pick:'Colombia',tier:'lean',  note:'Colombia topped a tough group unbeaten; Ghana sneak in 3rd. Colombia\'s balance favours them, but Ghana can spring it.' }
+};
+
+function predBadge(tier) {
+  const map = {
+    high:   { cls:'ai-conf-high',   label:'HIGH CONFIDENCE', dot:'🟢' },
+    likely: { cls:'ai-conf-likely', label:'LIKELY',          dot:'🟡' },
+    lean:   { cls:'ai-conf-lean',   label:'SLIGHT LEAN',     dot:'🟠' },
+    toss:   { cls:'ai-conf-toss',   label:'TOO CLOSE',       dot:'⚖️' }
+  };
+  return map[tier] || map.toss;
 }
 
 function renderKO(key) {
@@ -5373,11 +5459,27 @@ function renderKO(key) {
     const [num, date, time, home, away, venue] = m;
     const homeHTML = q ? resolveKOLabel(home, q) : home;
     const awayHTML = q ? resolveKOLabel(away, q) : away;
+    // Claude's prediction (R32 only)
+    let predHTML = '';
+    if (key === 'r32' && r32Predictions[num]) {
+      const p = r32Predictions[num];
+      const b = predBadge(p.tier);
+      predHTML = `
+        <div class="ko-pred">
+          <div class="ko-pred-head">
+            <span class="ko-pred-label">🤖 Claude's pick</span>
+            <span class="ko-pred-badge ${b.cls}">${b.dot} ${b.label}</span>
+          </div>
+          <div class="ko-pred-pick">${teamChip(p.pick)} to advance</div>
+          <div class="ko-pred-note">${p.note}</div>
+        </div>`;
+    }
     html += `
       <div class="ko-match">
         <div class="ko-match-num">MATCH ${num}</div>
         <div class="ko-teams">${homeHTML} <span style="color:var(--text-dim);font-weight:400">vs</span> ${awayHTML}</div>
         <div class="ko-meta">${date} · <span class="time">${time} MYT</span><br>${venue}</div>
+        ${predHTML}
       </div>
     `;
   });
