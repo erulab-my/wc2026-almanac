@@ -744,6 +744,51 @@
     line-height: 1.55;
     color: var(--text-soft);
   }
+  /* KO result display */
+  .ko-match.ko-played { border-color: rgba(212,175,55,0.25); }
+  .ko-result {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 8px 0 4px;
+    padding: 8px 10px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 8px;
+  }
+  .ko-result .ko-score {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 18px;
+    color: var(--text);
+    letter-spacing: 1px;
+  }
+  .ko-result .ko-pens {
+    font-size: 10.5px;
+    color: var(--gold-bright);
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+  }
+  .ko-result .ko-adv {
+    margin-left: auto;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text);
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .ko-verdict {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 100px;
+    font-family: 'JetBrains Mono', monospace;
+    margin-left: 6px;
+  }
+  .ko-verdict.ok { background: rgba(34,197,94,0.2); color: #4ade80; border: 1px solid rgba(34,197,94,0.4); }
+  .ko-verdict.miss { background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.35); }
+  .ko-pred.pred-ok { border-color: rgba(34,197,94,0.3); }
+  .ko-pred.pred-miss { border-color: rgba(239,68,68,0.25); opacity: 0.85; }
   .ko-meta { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-dim); line-height: 1.5; }
   .ko-meta .time { color: var(--gold); font-weight: 700; }
 
@@ -2374,7 +2419,7 @@
   </div>
   <div class="rev-badge">
     <span class="rev-tag">REV B</span>
-    <span class="rev-text">Updated 28 Jun 2026 · 3:53 PM MYT — <strong>The group stage is complete!</strong> All 32 knockout teams are confirmed. The site now opens on the <strong>Round of 32 bracket</strong> with <strong>🤖 Claude's prediction for every tie</strong>, based on group-stage form. Debutants Cape Verde face Messi's Argentina; France look the team to beat. Group results moved to the <strong>Group Matches</strong> &amp; <strong>Group Standings</strong> tabs.</span>
+    <span class="rev-text">Updated 1 Jul 2026 · 8:26 PM MYT — <strong>Round of 32 underway with shocks!</strong> <strong>Paraguay knocked out Germany on penalties</strong> and <strong>Morocco dumped the Netherlands</strong> (also on pens). Canada, Brazil, Norway &amp; Mexico advanced. The bracket now shows <strong>results + whether Claude's prediction was right</strong> (4 of 6 so far ✓). Group results live under the Group Matches &amp; Standings tabs.</span>
   </div>
 </header>
 
@@ -5440,6 +5485,17 @@ const r32Predictions = {
   '87': { pick:'Colombia',tier:'lean',  note:'Colombia topped a tough group unbeaten; Ghana sneak in 3rd. Colombia\'s balance favours them, but Ghana can spring it.' }
 };
 
+/* R32 actual results — keyed by match number.
+   {home, away scores, adv: who advanced, pens: optional shootout label} */
+const r32Results = {
+  '73': { hs:0, as:1, adv:'Canada' },
+  '76': { hs:2, as:1, adv:'Brazil' },
+  '74': { hs:1, as:1, adv:'Paraguay', pens:'Paraguay win 4-3 on penalties' },
+  '75': { hs:1, as:1, adv:'Morocco',  pens:'Morocco win 3-2 on penalties' },
+  '78': { hs:1, as:2, adv:'Norway' },
+  '79': { hs:2, as:0, adv:'Mexico' }
+};
+
 function predBadge(tier) {
   const map = {
     high:   { cls:'ai-conf-high',   label:'HIGH CONFIDENCE', dot:'🟢' },
@@ -5459,15 +5515,32 @@ function renderKO(key) {
     const [num, date, time, home, away, venue] = m;
     const homeHTML = q ? resolveKOLabel(home, q) : home;
     const awayHTML = q ? resolveKOLabel(away, q) : away;
+    const res = (key === 'r32') ? r32Results[num] : null;
+    // Result block (if played)
+    let resultHTML = '';
+    if (res) {
+      resultHTML = `
+        <div class="ko-result">
+          <span class="ko-score">${res.hs} - ${res.as}</span>
+          ${res.pens ? `<span class="ko-pens">${res.pens}</span>` : ''}
+          <span class="ko-adv">${teamChip(res.adv)} advance</span>
+        </div>`;
+    }
     // Claude's prediction (R32 only)
     let predHTML = '';
     if (key === 'r32' && r32Predictions[num]) {
       const p = r32Predictions[num];
       const b = predBadge(p.tier);
+      // If result known, show whether Claude was right
+      let verdict = '';
+      if (res) {
+        const correct = res.adv === p.pick;
+        verdict = `<span class="ko-verdict ${correct ? 'ok' : 'miss'}">${correct ? '✓ Correct' : '✗ Missed'}</span>`;
+      }
       predHTML = `
-        <div class="ko-pred">
+        <div class="ko-pred ${res ? (res.adv === p.pick ? 'pred-ok' : 'pred-miss') : ''}">
           <div class="ko-pred-head">
-            <span class="ko-pred-label">🤖 Claude's pick</span>
+            <span class="ko-pred-label">🤖 Claude's pick ${verdict}</span>
             <span class="ko-pred-badge ${b.cls}">${b.dot} ${b.label}</span>
           </div>
           <div class="ko-pred-pick">${teamChip(p.pick)} to advance</div>
@@ -5475,10 +5548,11 @@ function renderKO(key) {
         </div>`;
     }
     html += `
-      <div class="ko-match">
+      <div class="ko-match ${res ? 'ko-played' : ''}">
         <div class="ko-match-num">MATCH ${num}</div>
         <div class="ko-teams">${homeHTML} <span style="color:var(--text-dim);font-weight:400">vs</span> ${awayHTML}</div>
         <div class="ko-meta">${date} · <span class="time">${time} MYT</span><br>${venue}</div>
+        ${resultHTML}
         ${predHTML}
       </div>
     `;
